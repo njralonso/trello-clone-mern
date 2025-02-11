@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { NavLink, useParams } from "react-router-dom";
 import Layout from "./layouts/_layout"
-
+import AddNewBoardSvg from "../images/icons/circle_add.svg"
 const slugify = (text) => text.toLowerCase().replace(/\s+/g, '-');
 // const unslugify = (slug) => slug.replace(/-/g, ' ');
 
@@ -10,13 +10,11 @@ const Boards = () => {
 		{ id: 1, name: 'Board 1' },
 		{ id: 2, name: 'Board 2' },
 	]);
-	const [newBoard, setNewBoard] = useState('');
-	const handleAddBoard = () => {
-		if (newBoard) {
-			setBoards([...boards, { id: boards.length + 1, name: newBoard }]);
-			setNewBoard('');
-		}
-	};
+
+	const handleAddNewBoard = () => {
+
+	}
+
 	return (
 		<Layout>
 			<div style={{ fontFamily: 'Arial, sans-serif' }}>
@@ -29,23 +27,10 @@ const Boards = () => {
 						justifyContent: 'space-between',
 					}}
 				>
-					<button
-						onClick={handleAddBoard}
-						style={{
-							backgroundColor: '#0079bf',
-							color: '#fff',
-							border: 'none',
-							padding: '10px 20px',
-							borderRadius: '3px',
-							cursor: 'pointer',
-						}}
-					>
-						Add Board
-					</button>
+					<h2>Your Boards</h2>
 				</header>
 
 				<main style={{ padding: '20px' }}>
-					<h2>Your Boards</h2>
 					<div
 						style={{
 							display: 'grid',
@@ -54,6 +39,17 @@ const Boards = () => {
 							marginTop: '20px',
 						}}
 					>
+						<div>
+							<div style={{
+								backgroundColor: '#f4f5f7',
+								padding: '20px',
+								borderRadius: '5px',
+								boxShadow: '0 1px 2px rgba(0,0,0,0.1)'
+							}}
+							>
+								<img src={AddNewBoardSvg} alt="add_new_board" className="mx-auto" />
+							</div>
+						</div>
 						{boards.map((board) => (
 							<div
 								key={board.id}
@@ -61,7 +57,7 @@ const Boards = () => {
 									backgroundColor: '#f4f5f7',
 									padding: '20px',
 									borderRadius: '5px',
-									boxShadow: '0 1px 2px rgba(0,0,0,0.1)',
+									boxShadow: '0 1px 2px rgba(0,0,0,0.1)'
 								}}
 							>
 								<NavLink to={`/boards/${slugify(board.name)}`} end>
@@ -69,36 +65,6 @@ const Boards = () => {
 								</NavLink>
 							</div>
 						))}
-					</div>
-
-					<div style={{ marginTop: '20px' }}>
-						<input
-							type="text"
-							value={newBoard}
-							onChange={(e) => setNewBoard(e.target.value)}
-							placeholder="Enter board name"
-							style={{
-								padding: '10px',
-								width: '100%',
-								borderRadius: '5px',
-								border: '1px solid #ddd',
-								marginBottom: '10px',
-							}}
-						/>
-						<button
-							onClick={handleAddBoard}
-							style={{
-								padding: '10px 20px',
-								backgroundColor: '#26a69a',
-								color: '#fff',
-								border: 'none',
-								borderRadius: '5px',
-								width: '100%',
-								cursor: 'pointer',
-							}}
-						>
-							Create Board
-						</button>
 					</div>
 				</main>
 			</div>

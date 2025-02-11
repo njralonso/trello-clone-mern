@@ -25,7 +25,7 @@ const LoginRegister = () => {
 				// Guardamos el token en localStorage
 
 				// Redirigimos al Home o cualquier ruta que desees
-				navigate("/home");  // Aquí rediriges a la página de inicio o donde sea necesario
+				navigate("/boards");  // Aquí rediriges a la página de inicio o donde sea necesario
 			}
 		} catch (error) {
 			console.error(error)

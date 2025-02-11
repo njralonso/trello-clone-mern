@@ -1,5 +1,6 @@
 import { obtenerUsuario, obtenerUsuarioPorId, crearUsuario, eliminarUsuario } from "../services/userServices.js";
 
+
 export const getUsuarios = async (req, res) => {
 	try {
 		const usuarios = await obtenerUsuario()

@@ -1,7 +1,5 @@
 import express from "express"
 import Usuario from "../models/userModel.js";
-import bcrypt from "bcrypt"
-import jwt from "jsonwebtoken"
 import dotenv from "dotenv"
 import { verificarToken } from "../middleware/authMiddleware.js";
 import { login, register } from "../controllers/authController.js";
@@ -25,6 +23,7 @@ router.get("/perfil", verificarToken, (req, res) => {
 	res.json({ mensaje: "Bienvenido a tu perfil", usuario: req.usuario });
 });
 
+// 
 router.get("/usuarios", getUsuarios)
 router.get("/usuario/:id", getUsuario)
 router.get("/eliminar/:id", byeUsuario)
