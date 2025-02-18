@@ -5,6 +5,7 @@ const PORT = process.env.PORT || 5000;
 import express from "express"
 import connectDB from "./config/db.js"
 import usuariosRoutes from "./routes/usuarios.js"
+import boardRoutes from "./routes/boards.js"
 
 const app = express()
 // Middleware para manejar las solicitudes preflight (OPTIONS) de CORS
@@ -21,6 +22,7 @@ app.use((req, res, next) => {
 
 	next();
 });
+
 app.get("/home", (req, res) => {
 	res.send("Bienvenido a la página de inicio");
 	console.log("Esto es el /home")
@@ -28,6 +30,7 @@ app.get("/home", (req, res) => {
 connectDB()
 app.use(express.json())
 app.use("/api", usuariosRoutes)
+app.use("/api", boardRoutes)
 
 app.listen(PORT, () => {
 	console.log(`Servidor corriendo en http://localhost:${PORT}`)

@@ -2,16 +2,16 @@ import { useState } from "react";
 import { NavLink, useParams } from "react-router-dom";
 import Layout from "./layouts/_layout"
 import AddNewBoardSvg from "../images/icons/circle_add.svg"
-import Modal from "../components/Modal";
+import Modal from "../components/Modals/Layout/Modal";
+import useGetBoards from "../hooks/useGetBoards";
 
 const slugify = (text) => text.toLowerCase().replace(/\s+/g, '-');
 // const unslugify = (slug) => slug.replace(/-/g, ' ');
 
 const Boards = () => {
-	const [boards, setBoards] = useState([
-		{ id: 1, name: 'Board 1' },
-		{ id: 2, name: 'Board 2' },
-	]);
+	// Llamamos a los boards del backend
+	const board = useGetBoards()
+
 	const [isOpen, setIsOpen] = useState(false);
 
 	return (
@@ -50,9 +50,9 @@ const Boards = () => {
 								<img src={AddNewBoardSvg} alt="add_new_board" className="mx-auto" />
 							</div>
 						</div>
-						{boards.map((board) => (
+						{board.map((board) => (
 							<div
-								key={board.id}
+								key={crypto.randomUUID()}
 								style={{
 									backgroundColor: '#f4f5f7',
 									padding: '20px',
@@ -60,8 +60,8 @@ const Boards = () => {
 									boxShadow: '0 1px 2px rgba(0,0,0,0.1)'
 								}}
 							>
-								<NavLink to={`/boards/${slugify(board.name)}`} end>
-									<h3>{board.name}</h3>
+								<NavLink to={`/boards/${slugify(board.title)}`} end>
+									<h3>{board.title}</h3>
 								</NavLink>
 							</div>
 						))}
