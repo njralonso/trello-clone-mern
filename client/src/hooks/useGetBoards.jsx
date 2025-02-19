@@ -11,7 +11,7 @@ const useGetBoards = () => {
 			}
 			fecthBoards()
 		} catch (error) { }
-	}, [board])
+	}, [])
 
 	return board
 }
