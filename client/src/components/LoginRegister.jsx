@@ -34,13 +34,13 @@ const LoginRegister = () => {
   }
 
   return (
-    <section className="bg-gradient-to-r from-blue-400 to-cyan-300 via-red min-h-screen flex items-center justify-center">
+    <section className="bg-gradient-to-r from-blue-400 to-cyan-300 via-black min-h-screen flex items-center justify-center">
       <div className="container mx-auto px-6 py-8">
         <a href="#" className="flex items-center mb-6 text-2xl font-semibold text-white">
           <img className="w-8 h-8 mr-2" src={TrelloCloneIcon} alt="logo" />
           Task Manager
         </a>
-        <div className="w-full rounded-lg shadow-xl backdrop-blur-lg bg-white/20 border border-white/30">
+        <div className="w-full rounded-lg shadow-xl backdrop-blur-lg bg-white/10 border border-white/30">
           <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
             <h1 className="text-xl font-bold leading-tight tracking-tight text-white md:text-2xl">
               Iniciar Sesión
@@ -54,7 +54,7 @@ const LoginRegister = () => {
                   type="email"
                   name="email"
                   id="email"
-                  className="w-full p-3 rounded-lg focus:ring-blue-500 focus:border-blue-500 backdrop-blur-sm bg-white/10 border border-white/20 text-white placeholder-white/70 text-center"
+                  className="w-full p-3 rounded-lg focus:ring-blue-500 focus:border-blue-500 backdrop-blur-sm bg-white/10 border border-white/20 text-white placeholder-white/70"
                   placeholder="tu@email.com"
                   required
                 />
@@ -68,7 +68,7 @@ const LoginRegister = () => {
                   name="password"
                   id="password"
                   placeholder="••••••••"
-                  className="w-full p-3 rounded-lg focus:ring-blue-500 focus:border-blue-500 backdrop-blur-sm bg-white/10 border border-white/20 text-white placeholder-white/70 text-center"
+                  className="w-full p-3 rounded-lg focus:ring-blue-500 focus:border-blue-500 backdrop-blur-sm bg-white/10 border border-white/20 text-white placeholder-white/70"
                   required
                 />
               </div>
