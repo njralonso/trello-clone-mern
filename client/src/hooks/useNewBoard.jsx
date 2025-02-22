@@ -9,7 +9,6 @@ const useNewBoard = (title) => {
 					body: JSON.stringify({ title })
 				})
 			const data = await response.json();
-			console.log(data)
 		} catch (error) { }
 	}
 	sendNewBoard()

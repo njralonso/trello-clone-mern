@@ -1,4 +1,4 @@
-import { newBoard, getBoard } from "../controllers/boardController.js"
+import { newBoard, getBoard, getBoardById } from "../controllers/boardController.js"
 import { newList, getList } from "../controllers/listController.js"
 
 import express from "express"
@@ -8,6 +8,7 @@ dotenv.config()
 const router = express.Router()
 
 router.get("/getBoards", getBoard)
+router.get("/getBoards/:id", getBoardById)
 router.post("/create-new-board", newBoard)
 
 router.get("/getLists", getList)

@@ -9,7 +9,6 @@ export function useLists() {
 				const response = await fetch("http://localhost:3000/api/getLists")
 				const data = await response.json()
 				setLists(data)
-				console.log(data)
 			}
 			catch (error) { }
 		}

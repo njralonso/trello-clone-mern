@@ -1,4 +1,4 @@
-import { createNewBoard, getBoards } from "../services/boardServices.js";
+import { createNewBoard, getBoards, getBoardsById } from "../services/boardServices.js";
 
 export const newBoard = async (req, res) => {
 	try {
@@ -15,6 +15,15 @@ export const getBoard = async (req, res) => {
 		res.json(boards)
 	} catch (error) {
 		res.status(500).json({ message: "Error al cargar las listas" })
+	}
+}
+
+export const getBoardById = async (req, res) => {
+	try {
+		const board = await getBoardsById(req.params.id)
+		res.json(board)
+	} catch (error) {
+		res.status(500).json({ message: "Error al cargar el Board" })
 	}
 }
 

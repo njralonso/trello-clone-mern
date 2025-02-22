@@ -7,3 +7,7 @@ export const createNewBoard = async (data) => {
 export const getBoards = async () => {
 	return await Board.find()
 }
+
+export const getBoardsById = async (id) => {
+	return await Board.findById(id)
+}

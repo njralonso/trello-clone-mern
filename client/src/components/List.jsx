@@ -2,7 +2,7 @@ import { useState } from "react"
 import Task from "./Task"
 import { useLists } from "../hooks/useLists"
 
-const List = () => {
+const List = ({ boardId }) => {
 	const { lists, addLists } = useLists()
 	// Lista de listas
 	const [list, setList] = useState([])
@@ -12,7 +12,6 @@ const List = () => {
 
 	// Valor de la nueva lista en el input
 	const [newList, setNewList] = useState("")
-	console.log(newList)
 
 	// Muestra el formulario 
 	const handleShowFormList = () => {
@@ -53,7 +52,6 @@ const List = () => {
 									➕ Añadir una tarea
 								</button>
 							</div>
-
 						)
 				}
 				{showAddListButton ?
