@@ -13,6 +13,8 @@ export const getBoard = async (req, res) => {
 	try {
 		const boards = await getBoards()
 		res.json(boards)
-	} catch (error) { }
+	} catch (error) {
+		res.status(500).json({ message: "Error al cargar las listas" })
+	}
 }
 
