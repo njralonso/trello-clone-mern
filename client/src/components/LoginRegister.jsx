@@ -34,89 +34,81 @@ const LoginRegister = () => {
 	}
 
 	return (
-		<section className="bg-neutral-50 dark:bg-neutral-950 min-h-screen flex items-center justify-center">
-			<div className="container mx-auto px-6 py-8 bg-neutral-950 rounded-xl">
-				<a href="#" className="flex items-center mb-6 text-2xl font-semibold text-neutral-800 dark:text-neutral-200">
-					<img className="w-8 h-8 mr-2" src={TrelloCloneIcon} alt="logo" />
-					Task Manager
-				</a>
-				<div className="w-full rounded-lg shadow-xl backdrop-blur-lg bg-neutral-50/20 dark:bg-neutral-950/10 border border-white/30">
-					<div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-						<h1 className="text-xl font-bold leading-tight tracking-tight text-neutral-800 dark:text-neutral-200 md:text-2xl">
-							Iniciar Sesión
-						</h1>
-						<form className="space-y-4 md:space-y-6" onSubmit={handleSubmit}>
-							<div className="absolute top-[2rem] right-[2rem] flex gap-4 bg-neutral-950 dark:bg-neutral-50 py-1 px-2 rounded-xl">
-								<img src="./src/images/icons/icon-light-mode.svg" alt="light_mode_icon" className="w-8" />
-								<img src="./src/images/icons/icon-dark-mode.svg" alt="light_mode_icon" className="w-8" />
-							</div>
-							<div>
-								<label htmlFor="email" className="block mb-2 text-sm font-medium text-neutral-800 dark:text-neutral-200">Email</label>
-								<input
-									value={email}
-									onChange={(e) => setEmail(e.target.value)}
-									type="email"
-									name="email"
-									id="email"
-									className="w-full p-3 rounded-lg border border-white/20
-									bg-neutral-950/10 dark:bg-neutral-50/10
-									text-neutral-800 dark:text-neutral-200 
-									placeholder:text-neutral-950 dark:placeholder:text-neutral-50/50"
-									placeholder="tu@email.com"
-									required
-								/>
-							</div>
-							<div>
-								<label htmlFor="password" className="block mb-2 text-sm font-medium text-neutral-800 dark:text-neutral-200">Contraseña</label>
-								<input
-									value={password}
-									onChange={(e) => setPassword(e.target.value)}
-									type="password"
-									name="password"
-									id="password"
-									placeholder="••••••••"
-									className="w-full p-3 rounded-lg border border-white/20
-									bg-neutral-950/20 dark:bg-neutral-50/80 
-									text-neutral-800 dark:text-neutral-200 
-									placeholder:text-neutral-800/20 dark:placeholder:text-neutral-200/80"
-									required
-								/>
-							</div>
-							<div className="flex items-center justify-between">
-								<div className="flex items-start">
-									<div className="flex items-center h-5">
-										<input
-											id="remember"
-											aria-describedby="remember"
-											type="checkbox"
-											className="w-4 h-4 rounded focus:ring-3 focus:ring-blue-300 bg-neutral-50/30 dark:bg-neutral-950 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800"
-										/>
-									</div>
-									<div className="ml-3 text-sm">
-										<label htmlFor="remember" className="text-neutral-800 dark:text-neutral-200">Recordar</label>
-									</div>
+		<div className="bg-custom-white dark:bg-custom-black min-h-screen flex flex-col justify-center items-center">
+			<div className="flex items-center mb-6 text-2xl font-semibold text-neutral-800 dark:text-neutral-200">
+				<img className="w-8 h-8 mr-2" src={TrelloCloneIcon} alt="logo" />
+				<p>Task Manager</p>
+			</div>
+			<div className="container rounded-xl border-2 border-custom-teal">
+				<div className="p-6 space-y-4 md:space-y-6 sm:p-8 dark:bg-custom-gray rounded-xl">
+					<h1 className="text-xl font-bold leading-tight tracking-tight text-neutral-800 dark:text-custom-white md:text-2xl">
+						Iniciar Sesión
+					</h1>
+					<form className="space-y-4 md:space-y-6" onSubmit={handleSubmit}>
+						<div>
+							<label htmlFor="email" className="block mb-2 text-sm font-medium text-neutral-800 dark:text-custom-white">Email</label>
+							<input
+								value={email}
+								onChange={(e) => setEmail(e.target.value)}
+								type="email"
+								name="email"
+								id="email"
+								className="w-full p-3 rounded-lg font-semibold focus:outline-custom-teal
+									bg-neutral-950/10 dark:bg-custom-white
+									text-neutral-800 dark:text-custom-gray
+									placeholder:text-neutral-950 dark:placeholder:text-custom-gray/60 placeholder:font-normal"
+								placeholder="tu@email.com"
+								required
+							/>
+						</div>
+						<div>
+							<label htmlFor="password" className="block mb-2 text-sm font-medium text-neutral-800 dark:text-custom-white">Contraseña</label>
+							<input
+								value={password}
+								onChange={(e) => setPassword(e.target.value)}
+								type="password"
+								name="password"
+								id="password"
+								placeholder="••••••••"
+								className="w-full p-3 rounded-lg font-semibold focus:outline-custom-teal
+									bg-neutral-950/10 dark:bg-custom-white
+									text-neutral-800 dark:text-custom-gray
+									placeholder:text-neutral-950 dark:placeholder:text-custom-gray/60 placeholder:font-normal"
+								required
+							/>
+						</div>
+						<div className="flex items-center justify-between">
+							<div className="flex items-start">
+								<div className="flex items-center h-5">
+									<input
+										id="remember"
+										aria-describedby="remember"
+										type="checkbox"
+										className="w-4 h-4 rounded focus:ring-3 focus:ring-custom-teal dark:focus:ring-custom-teal"
+									/>
 								</div>
-								<a href="#" className="text-sm font-medium text-neutral-800 dark:text-neutral-200 hover:underline">¿Has olvidado tu contraseña?</a>
+								<div className="ml-3 text-sm">
+									<label htmlFor="remember" className="text-custom-gray dark:text-custom-white">Recordar</label>
+								</div>
 							</div>
-							<button
-								type="submit"
-								className="w-full py-3 rounded-lg text-sm font-medium text-center 
-								bg-neutral-400 dark:bg-neutral-600 
-								hover:bg-neutral-950 dark:hover:bg-neutral-100/60 
-								text-neutral-800 dark:text-neutral-200 
-								hover:text-neutral-200 dark:hover:text-neutral-200
-								transition ease-in-out duration-300"
-							>
-								Entrar
-							</button>
-							<p className="text-sm font-light text-neutral-800 dark:text-neutral-200">
-								¿Todavía no tienes una cuenta? <a href="#" className="font-medium text-[#5b9ef8] hover:underline">Regístrate</a>
-							</p>
-						</form>
-					</div>
+							<a href="#" className="text-sm font-medium text-custom-gray dark:text-custom-white hover:underline">¿Has olvidado tu contraseña?</a>
+						</div>
+						<button
+							type="submit"
+							className="w-full py-3 text-sm font-medium text-center hover:rounded-xl hover:font-bold transition-[border-radius] duration-200 hover:underline
+								bg-custom-teal dark:bg-custom-teal
+								text-neutral-800 dark:text-custom-white 
+								hover:text-neutral-200 dark:hover:text-neutral-200"
+						>
+							Entrar
+						</button>
+						<p className="text-sm font-light text-custom-gray dark:text-custom-white">
+							¿Todavía no tienes una cuenta? <a href="#" className="font-medium text-custom-teal hover:underline">Regístrate</a>
+						</p>
+					</form>
 				</div>
 			</div>
-		</section>
+		</div>
 	)
 }
 

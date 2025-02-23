@@ -22,9 +22,9 @@ const List = ({ boardId }) => {
 
 	return (
 		<>
-			<div className="flex bg-white p-4 rounded-lg shadow-md border border-gray-200 gap-4">
+			<div className="flex dark:text-custom-white gap-4 overflow-x-scroll">
 				{lists.map((l, i) => (
-					<div key={i} className="w-fit">
+					<div key={i} className="min-w-80 px-4 py-2 dark:bg-custom-gray rounded-lg">
 						<ul className="space-y-3">
 							<li>{l.title}</li>
 							<button className="bg-green-300 text-black">Agregar tarea</button>
