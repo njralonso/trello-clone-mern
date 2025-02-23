@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import AddNewBoardSvg from "../images/icons/circle_add.svg"
 import Modal from "../components/Modals/Layout/Modal";
 import useGetBoards from "../hooks/useGetBoards";
-
+import Layout from "../views/layouts/_layout"
 const slugify = (text) => text.toLowerCase().replace(/\s+/g, '-');
 // const unslugify = (slug) => slug.replace(/-/g, ' ');
 
@@ -15,46 +15,42 @@ const Boards = () => {
 	return (
 		<>
 			<Modal isOpen={isOpen} closeModal={() => setIsOpen(false)} />
-			<section style={{ fontFamily: 'Arial, sans-serif' }}>
-				<div style={{ padding: '20px' }}>
-					<div
-						style={{
-							display: 'grid',
-							gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
-							gap: '20px',
-							marginTop: '20px',
-						}}
-					>
-						<div>
-							<div style={{
-								backgroundColor: '#f4f5f7',
-								padding: '20px',
-								borderRadius: '5px',
-								boxShadow: '0 1px 2px rgba(0,0,0,0.1)'
+			<Layout>
+				<section className="dark:bg-custom-black w-full">
+					<div className="container">
+						<div
+							style={{
+								display: 'grid',
+								gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
+								gap: '20px',
 							}}
-								onClick={() => setIsOpen(true)}
-							>
-								<img src={AddNewBoardSvg} alt="add_new_board" className="mx-auto" />
+						>
+							<div>
+								<div className="dark:bg-custom-gray dark:text-custom-white text-center 
+									hover:inset-ring-2 hover:inset-ring-custom-teal dark:hover:bg-custom-gray/20 rounded-lg h-full flex justify-center items-center gap-4 cursor-pointer"
+									onClick={() => setIsOpen(true)}
+								>
+									<p>New board</p>
+									<img src={AddNewBoardSvg} alt="add_new_board" className="size-8 h-full" />
+								</div>
 							</div>
+							{board.map((board) => (
+								<ul
+									key={board._id}
+									className="dark:bg-custom-gray dark:text-custom-white text-center 
+									hover:inset-ring-2 hover:inset-ring-custom-teal hover:dark:bg-custom-gray/20 rounded-lg"
+								>
+									<li>
+										<NavLink className="block py-4 px-8" to={`/boards/${board._id}`} end>
+											<h3>{board.title}</h3>
+										</NavLink>
+									</li>
+								</ul>
+							))}
 						</div>
-						{board.map((board) => (
-							<div
-								key={board._id}
-								style={{
-									backgroundColor: '#f4f5f7',
-									padding: '20px',
-									borderRadius: '5px',
-									boxShadow: '0 1px 2px rgba(0,0,0,0.1)'
-								}}
-							>
-								<NavLink to={`/boards/${board._id}`} end>
-									<h3>{board.title}</h3>
-								</NavLink>
-							</div>
-						))}
 					</div>
-				</div>
-			</section>
+				</section>
+			</Layout >
 		</>
 	)
 }

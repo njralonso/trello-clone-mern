@@ -5,8 +5,8 @@ const Layout = ({ children }) => {
 	return (
 		<>
 			<Navbar />
-			<SideBar />
-			<div className="p-4 sm:ml-64 mt-16 sm:mt-20">
+			<div className="flex mt-16 gap-8 container justify-center mx-auto">
+				<SideBar />
 				{children}
 			</div>
 		</>

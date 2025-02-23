@@ -11,8 +11,10 @@ const Board = () => {
 
 	return (
 		<Layout>
-			<h1 className="bg-red-300 text-white font-semibold text-5xl">OLA K ASE {board.title}</h1>
-			<List boardId={name} />
+			<div className="flex flex-col overflow-hidden max-w-5xl">
+				<h1 className="dark:text-custom-white font-semibold text-4xl mb-4">{board.title}</h1>
+				<List boardId={name} />
+			</div>
 		</Layout>
 	)
 }
