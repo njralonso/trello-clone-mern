@@ -46,9 +46,9 @@ const LoginRegister = () => {
 							Iniciar Sesión
 						</h1>
 						<form className="space-y-4 md:space-y-6" onSubmit={handleSubmit}>
-							<div class="absolute top-[2rem] right-[2rem] flex gap-4 bg-neutral-950 dark:bg-neutral-50 py-1 px-2 rounded-xl">
-								<img src="./src/images/icons/icon-light-mode.svg" alt="light_mode_icon" class="w-8" />
-								<img src="./src/images/icons/icon-dark-mode.svg" alt="light_mode_icon" class="w-8" />
+							<div className="absolute top-[2rem] right-[2rem] flex gap-4 bg-neutral-950 dark:bg-neutral-50 py-1 px-2 rounded-xl">
+								<img src="./src/images/icons/icon-light-mode.svg" alt="light_mode_icon" className="w-8" />
+								<img src="./src/images/icons/icon-dark-mode.svg" alt="light_mode_icon" className="w-8" />
 							</div>
 							<div>
 								<label htmlFor="email" className="block mb-2 text-sm font-medium text-neutral-800 dark:text-neutral-200">Email</label>

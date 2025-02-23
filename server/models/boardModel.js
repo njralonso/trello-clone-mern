@@ -1,8 +1,9 @@
 import mongoose from "mongoose"
 
-const newBoardSchema = new mongoose.Schema({
-	title: { type: String, required: true }
+const boardSchema = new mongoose.Schema({
+	title: { type: String, required: true },
+	lists: [String]
 })
 
-const NewBoard = mongoose.model("NewBoard", newBoardSchema)
-export default NewBoard
+const Board = mongoose.model("Board", boardSchema)
+export default Board

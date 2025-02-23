@@ -1,30 +1,30 @@
 import { useState, useEffect } from "react"
 
-export function useLists() {
+export function useLists(boardId) {
 	const [lists, setLists] = useState([])
-
 	useEffect(() => {
 		async function fetchLists() {
 			try {
-				const response = await fetch("http://localhost:3000/api/getLists")
+				const response = await fetch(`http://localhost:3000/api/getLists/${boardId}`)
 				const data = await response.json()
 				setLists(data)
 			}
 			catch (error) { }
 		}
 		fetchLists()
-	}, [])
+	}, [lists])
 
-	async function addLists(title) {
+	async function addLists(board, title) {
 		const response = await fetch("http://localhost:3000/api/addLists", {
 			method: "POST",
 			mode: "cors",
 			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify({ title })
+			body: JSON.stringify({ board, title })
 		})
 		try {
 			const newList = await response.json()
-			setLists([...lists, newList]); // Actualiza estado con la nueva lista
+			setLists(prevLists => [...prevLists, newList])
+			// Actualiza estado con la nueva lista
 		} catch (error) { }
 	}
 

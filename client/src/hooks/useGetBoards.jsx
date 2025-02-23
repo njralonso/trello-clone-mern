@@ -12,7 +12,7 @@ const useGetBoards = () => {
 			} catch (error) { }
 		}
 		fecthBoards()
-	}, [])
+	}, [board])
 	return { board }
 }
 
