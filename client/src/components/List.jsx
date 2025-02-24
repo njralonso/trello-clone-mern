@@ -3,7 +3,7 @@ import { useLists } from "../hooks/useLists"
 import FormList from "./FormList"
 
 const List = ({ boardId }) => {
-	const { lists, addLists } = useLists(boardId)
+	const { lists, addLists, setRefresh } = useLists(boardId)
 	const [showAddListButton, setShowAddListButton] = useState(false)
 	const [listName, setListName] = useState("")
 
@@ -17,6 +17,7 @@ const List = ({ boardId }) => {
 	const handleAddList = () => {
 		addLists(boardId, listName)
 		setShowAddListButton(false)
+		setRefresh(true)
 		setListName("")
 	}
 
