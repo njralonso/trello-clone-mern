@@ -1,11 +1,17 @@
 import { useState } from "react"
 import { useLists } from "../hooks/useLists"
+import { useTask } from "../hooks/useTasks"
 import FormList from "./FormList"
+import FormTask from "./FormTask"
+import Task from "./Task"
 
 const List = ({ boardId }) => {
+	const { task, addTask, setRefresh } = useTask()
 	const { lists, addLists, setRefresh } = useLists(boardId)
 	const [showAddListButton, setShowAddListButton] = useState(false)
 	const [listName, setListName] = useState("")
+	const [taskName, setTaskName] = useState("")
+	const [isVisible, setVisible] = useState(false)
 
 	if (!lists) return <p>Cargando...</p>
 
@@ -21,23 +27,43 @@ const List = ({ boardId }) => {
 		setListName("")
 	}
 
+	const handleCreateTask = () => {
+		setVisible(true)
+	}
+
+	const handleAddTask = () => {
+		addTask(lists[0]._id, taskName)
+		setVisible(false)
+		setRefresh(true)
+		setTaskName("")
+	}
+
 	return (
 		<>
-			<div className="flex dark:text-custom-white gap-4 overflow-x-scroll">
+			<div className="flex dark:text-custom-white gap-4 overflow-x-scroll p-4">
 				{lists.map((l, i) => (
-					<div key={i} className="min-w-80 px-4 py-2 dark:bg-custom-gray rounded-lg">
-						<ul className="space-y-3">
-							<li>{l.title}</li>
-							<button className="bg-green-300 text-black">Agregar tarea</button>
+					<div key={i} className="min-w-[320px] px-6 py-4 bg-custom-gray rounded-lg shadow-lg">
+						<div className="space-y-4">
+							<p className="text-lg font-semibold text-custom-white">
+								{l.title}
+							</p>
+						</div>
+						<ul>
+							<Task list={l._id} />
 						</ul>
+						<FormTask isVisible={isVisible} setVisible={setVisible} taskName={taskName} setTaskName={setTaskName} handleAddTask={handleAddTask} />
+						<button onClick={handleCreateTask} className="w-full bg-custom-teal text-white font-medium py-2 rounded-lg hover:bg-custom-teal/50 transition-all">
+							Agregar tarea
+						</button>
 					</div>
 				))}
+
 				{!showAddListButton ? (
 					<button
 						onClick={handleShowFormList}
-						className="flex items-center gap-2 px-4 py-2 bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200 transition-all"
+						className="flex items-center gap-2 px-6 py-3 bg-custom-white text-custom-black rounded-md hover:bg-custom-gray transition-all h-min"
 					>
-						Añade una lista
+						Añadir una lista
 					</button>
 				) : (
 					<FormList listName={listName} setListName={setListName} handleAddList={handleAddList} />
