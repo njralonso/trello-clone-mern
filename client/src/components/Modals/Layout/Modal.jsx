@@ -2,13 +2,14 @@ import ModalTask from "../ModalBoard";
 import { useState } from "react";
 import useNewBoard from "../../../hooks/useNewBoard";
 
-const Modal = ({ isOpen, closeModal }) => {
+const Modal = ({ isOpen, closeModal, setRefresh }) => {
 	if (!isOpen) return null; // No renderiza nada si isOpen es false
 	const [board, setBoard] = useState([])
 
 	const handleNewBoard = () => {
 		useNewBoard(board)
 		closeModal()
+		setRefresh(true)
 	}
 
 	const handleBoard = (value) => {
@@ -17,18 +18,32 @@ const Modal = ({ isOpen, closeModal }) => {
 
 	return (
 		<>
-			{isOpen &&
-				<div className="absolute z-[99] inset-0">
-					<div className="flex flex-col justify-center items-center w-full h-full">
+			{isOpen && (
+				<div className="absolute z-[99] inset-0 bg-[#222831]/80 flex justify-center items-center h-screen">
+					<div className="bg-[#393E46] rounded-xl shadow-lg w-[90%] max-w-md p-6 text-center">
+						{/* Contenido del Modal */}
 						<ModalTask handleBoard={handleBoard} />
-						<div className="flex">
-							<button type="button" onClick={handleNewBoard} className="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Crear</button>
+						{/* Botones */}
+						<div className="flex justify-center gap-4 mt-6">
+							<button
+								type="button"
+								onClick={handleNewBoard}
+								className="text-[#EEEEEE] bg-custom-teal hover:bg-custom-teal/70 font-medium rounded-lg text-sm px-6 py-2.5 transition-all"
+							>
+								Crear
+							</button>
 
-							<button type="button" onClick={closeModal} className="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">Light</button>
+							<button
+								type="button"
+								onClick={closeModal}
+								className="text-[#EEEEEE] bg-transparent border border-[#EEEEEE] hover:bg-[#EEEEEE] hover:text-[#222831] font-medium rounded-lg text-sm px-6 py-2.5 transition-all"
+							>
+								Cancelar
+							</button>
 						</div>
 					</div>
 				</div>
-			}
+			)}
 		</>
 	)
 }

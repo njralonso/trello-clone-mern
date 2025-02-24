@@ -9,12 +9,12 @@ const slugify = (text) => text.toLowerCase().replace(/\s+/g, '-');
 
 const Boards = () => {
 	// Llamamos a los boards del backend
-	const { board } = useGetBoards()
+	const { board, setRefresh } = useGetBoards()
 	const [isOpen, setIsOpen] = useState(false);
 
 	return (
 		<>
-			<Modal isOpen={isOpen} closeModal={() => setIsOpen(false)} />
+			<Modal isOpen={isOpen} closeModal={() => setIsOpen(false)} setRefresh={setRefresh} />
 			<Layout>
 				<section className="dark:bg-custom-black w-full">
 					<div className="container">

@@ -6,8 +6,8 @@ import FormTask from "./FormTask"
 import Task from "./Task"
 
 const List = ({ boardId }) => {
-	const { lists, addLists } = useLists(boardId)
 	const { task, addTask, setRefresh } = useTask()
+	const { lists, addLists, setRefresh } = useLists(boardId)
 	const [showAddListButton, setShowAddListButton] = useState(false)
 	const [listName, setListName] = useState("")
 	const [taskName, setTaskName] = useState("")
@@ -23,6 +23,7 @@ const List = ({ boardId }) => {
 	const handleAddList = () => {
 		addLists(boardId, listName)
 		setShowAddListButton(false)
+		setRefresh(true)
 		setListName("")
 	}
 

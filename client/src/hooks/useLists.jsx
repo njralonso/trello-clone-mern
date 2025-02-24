@@ -2,17 +2,21 @@ import { useState, useEffect } from "react"
 
 export function useLists(boardId) {
 	const [lists, setLists] = useState([])
-	useEffect(() => {
-		async function fetchLists() {
-			try {
-				const response = await fetch(`http://localhost:3000/api/getLists/${boardId}`)
-				const data = await response.json()
-				setLists(data)
-			}
-			catch (error) { }
+	const [refresh, setRefresh] = useState(false)
+
+	async function fetchLists() {
+		try {
+			const response = await fetch(`http://localhost:3000/api/getLists/${boardId}`)
+			const data = await response.json()
+			setLists(data)
+			setRefresh(false)
 		}
+		catch (error) { }
+	}
+
+	useEffect(() => {
 		fetchLists()
-	}, [])
+	}, [refresh])
 
 	async function addLists(board, title) {
 		const response = await fetch("http://localhost:3000/api/addLists", {
@@ -28,5 +32,5 @@ export function useLists(boardId) {
 		} catch (error) { }
 	}
 
-	return { lists, addLists }
+	return { lists, addLists, setRefresh }
 }
