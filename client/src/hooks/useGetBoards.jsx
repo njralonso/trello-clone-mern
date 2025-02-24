@@ -2,18 +2,23 @@ import { useState, useEffect } from "react"
 
 const useGetBoards = () => {
 	const [board, setBoards] = useState([])
+	const [refresh, setRefresh] = useState(false)
+
+	const fecthBoards = async () => {
+		try {
+			const response = await fetch("http://localhost:3000/api/getBoards")
+			const data = await response.json()
+			setBoards(data)
+			setRefresh(false)
+		} catch (error) { }
+	}
+
 
 	useEffect(() => {
-		const fecthBoards = async () => {
-			try {
-				const response = await fetch("http://localhost:3000/api/getBoards")
-				const data = await response.json()
-				setBoards(data)
-			} catch (error) { }
-		}
 		fecthBoards()
-	}, [])
-	return { board }
+	}, [refresh])
+
+	return { board, setRefresh }
 }
 
 export default useGetBoards
