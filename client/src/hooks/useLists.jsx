@@ -12,7 +12,7 @@ export function useLists(boardId) {
 			catch (error) { }
 		}
 		fetchLists()
-	}, [lists])
+	}, [])
 
 	async function addLists(board, title) {
 		const response = await fetch("http://localhost:3000/api/addLists", {

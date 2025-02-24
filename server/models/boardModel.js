@@ -2,7 +2,7 @@ import mongoose from "mongoose"
 
 const boardSchema = new mongoose.Schema({
 	title: { type: String, required: true },
-	lists: [String]
+	lists: { type: [] }
 })
 
 const Board = mongoose.model("Board", boardSchema)
