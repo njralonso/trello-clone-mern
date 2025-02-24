@@ -14,7 +14,6 @@ const Modal = ({ isOpen, closeModal }) => {
 
 	const handleBoard = (value) => {
 		setBoard(value)
-		// console.log(board)
 	}
 
 	return (
