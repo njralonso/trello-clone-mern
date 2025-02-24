@@ -1,4 +1,3 @@
-import { useSearchParams } from "react-router-dom";
 import ModalTask from "../ModalBoard";
 import { useState } from "react";
 import useNewBoard from "../../../hooks/useNewBoard";

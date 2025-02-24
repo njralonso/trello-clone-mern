@@ -1,6 +1,6 @@
 import { newBoard, getBoard, getBoardById } from "../controllers/boardController.js"
 import { newList, getList, getListsById } from "../controllers/listController.js"
-import { getTaskController, newTaskController } from "../controllers/taskController.js"
+import { getTaskController, newTaskController, getTaskByIdController } from "../controllers/taskController.js"
 
 import express from "express"
 import dotenv from "dotenv"
@@ -17,6 +17,7 @@ router.get("/getLists/:id", getListsById)
 router.post("/addLists", newList)
 
 router.get("/getTasks", getTaskController)
+router.get("/getTasks/:id", getTaskByIdController)
 router.post("/addTasks", newTaskController)
 
 export default router
