@@ -4,9 +4,11 @@ const Task = ({ task }) => {
 			{task.map((item, i) => (
 				<li
 					key={i}
-					className="bg-[#222831] p-3 rounded-lg shadow-sm flex justify-between items-center border border-[#393E46] text-[#EEEEEE] hover:bg-[#2E3239] transition-all"
+					className="bg-custom-black p-3 rounded-lg shadow-sm border border-custom-gray text-custom-white hover:bg-custom-teal/50 transition-all"
 				>
-					{item.title}
+					<p className="break-words whitespace-normal">
+						{item.title}
+					</p>
 				</li>
 			))}
 		</>

@@ -1,6 +1,6 @@
 const FormList = ({ listName, setListName, handleAddList }) => {
 	return (
-		<form className="flex flex-col items-center gap-2 px-4 py-2 bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200 transition-all">
+		<form className="min-w-80 w-80 flex flex-col items-center gap-2 px-4 py-2 bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200 transition-all h-min">
 			<input
 				onChange={(e) => setListName(e.target.value)}
 				value={listName}
@@ -12,7 +12,7 @@ const FormList = ({ listName, setListName, handleAddList }) => {
 				<button
 					type="button"
 					onClick={handleAddList}
-					className="bg-emerald-500 text-white px-4 py-1.5 rounded-md hover:bg-emerald-600 transition-all font-semibold"
+					className="bg-emerald-500 text-white px-4 py-1.5 rounded-md hover:bg-emerald-600 transition-all font-semibold text-[0.8em]"
 				>
 					Agregar lista
 				</button>

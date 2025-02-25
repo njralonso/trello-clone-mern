@@ -14,7 +14,7 @@ const FormTask = ({ taskName, setTaskName, handleAddTask, setIsVisible, isVisibl
 						<button
 							type="button"
 							onClick={handleAddTask}
-							className="bg-emerald-500 text-white px-4 py-1.5 rounded-md hover:bg-emerald-600 transition-all font-semibold"
+							className="bg-emerald-500 text-white px-4 py-1.5 rounded-md hover:bg-emerald-600 transition-all font-semibold text-[0.8em]"
 						>
 							Agregar lista
 						</button>

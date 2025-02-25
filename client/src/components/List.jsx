@@ -26,7 +26,7 @@ const List = ({ boardId }) => {
 
 	return (
 		<>
-			<div className="flex dark:text-custom-white gap-4 overflow-x-scroll p-4">
+			<div className="flex dark:text-custom-white gap-4">
 				{lists.map((l, i) => (
 					<ListItem key={i} list={l} />
 				))}
@@ -34,7 +34,7 @@ const List = ({ boardId }) => {
 				{!showAddListButton ? (
 					<button
 						onClick={handleShowFormList}
-						className="flex items-center gap-2 px-6 py-3 bg-custom-white text-custom-black rounded-md hover:bg-custom-gray transition-all h-min"
+						className="gap-2 px-6 py-3 bg-custom-white text-custom-black rounded-md hover:bg-custom-gray transition-all h-min min-w-80 w-80"
 					>
 						Añadir una lista
 					</button>
@@ -60,11 +60,11 @@ const ListItem = ({ list }) => {
 	};
 
 	return (
-		<div className="min-w-[320px] px-6 py-4 bg-custom-gray rounded-lg shadow-lg">
+		<div className="min-w-80 w-80 px-6 py-4 bg-custom-gray rounded-lg shadow-lg overflow-hidden">
 			<div className="space-y-4">
 				<p className="text-lg font-semibold text-custom-white">{list.title}</p>
 			</div>
-			<ul>
+			<ul className="max-h-[70vh] mt-4 overflow-x-hidden">
 				<Task task={task} />
 			</ul>
 
@@ -79,7 +79,7 @@ const ListItem = ({ list }) => {
 
 			<button
 				onClick={() => setIsVisible(!isVisible)}
-				className="w-full bg-custom-teal text-white font-medium py-2 rounded-lg hover:bg-custom-teal/50 transition-all"
+				className="w-full bg-custom-teal text-white font-medium py-2 rounded-lg hover:bg-custom-teal/50 transition-all mt-4"
 			>
 				Agregar tarea
 			</button>

@@ -4,7 +4,7 @@ const SideBar = () => {
 	return (
 		<aside
 			id="logo-sidebar"
-			className="h-full w-1/5 bg-custom-white dark:bg-custom-gray rounded-lg"
+			className="h-full bg-custom-white dark:bg-custom-gray rounded-lg max-w-80 w-80"
 			aria-label="Sidebar"
 		>
 			<div className="h-full p-4 overflow-y-auto"> {/* Elimina bg-white/dark de aquí */}
