@@ -1,7 +1,4 @@
-import { useTask } from "../hooks/useTasks"
-
-const Task = ({ list }) => {
-	const { task, setRefresh } = useTask(list)
+const Task = ({ task }) => {
 	return (
 		<>
 			{task.map((item, i) => (

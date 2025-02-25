@@ -1,4 +1,4 @@
-const FormTask = ({ taskName, setTaskName, handleAddTask, isVisible, setVisible }) => {
+const FormTask = ({ taskName, setTaskName, handleAddTask, setIsVisible, isVisible }) => {
 	return (
 		<>
 			{isVisible &&
@@ -20,7 +20,7 @@ const FormTask = ({ taskName, setTaskName, handleAddTask, isVisible, setVisible 
 						</button>
 						<button
 							type="button"
-							onClick={() => setVisible(false)}
+							onClick={() => setIsVisible(false)}
 							className="p-2 text-gray-500 hover:text-gray-800 border border-gray-400 rounded-md px-4 py-1.5 font-semibold"
 						>
 							Cancelar ❌
