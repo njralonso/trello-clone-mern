@@ -11,8 +11,10 @@ const Board = () => {
 
 	return (
 		<Layout>
-			<div className="flex flex-col overflow-hidden max-w-5xl">
-				<h1 className="dark:text-custom-white font-semibold text-4xl mb-4">{board.title}</h1>
+			<div className="flex flex-col max-w-full overflow-x-auto">
+				<h1 className="dark:text-custom-white text-custom-black font-bold text-5xl mb-6 tracking-wide">
+					{board.title}
+				</h1>
 				<List boardId={name} />
 			</div>
 		</Layout>
