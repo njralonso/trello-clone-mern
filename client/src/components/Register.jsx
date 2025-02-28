@@ -1,16 +1,24 @@
-import React, { useState } from 'react';
-import TrelloCloneIcon from './path_to_logo'; // Asegúrate de poner la ruta correcta de tu logo
+import { useState } from 'react';
+import TrelloCloneIcon from "../images/icons/trello_clone_icon.svg"
+import { useRegister } from '../hooks/useRegister';
 
 const Register = () => {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
-	const [confirmPassword, setConfirmPassword] = useState('');
+	const [rePassword, setRePassword] = useState('');
+	const { register, loader, error } = useRegister(email, password, rePassword)
+
+	const validate = async () => {
+		if (!email.includes("@")) return
+		const newUserData = await register(email, password, rePassword)
+	}
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		// Aquí podrías agregar la lógica para manejar el registro
 		console.log('Email:', email);
 		console.log('Password:', password);
+		console.log("rePassword", rePassword)
+		validate()
 	};
 
 	return (
@@ -62,12 +70,12 @@ const Register = () => {
 							/>
 						</div>
 						<div>
-							<label htmlFor="confirmPassword" className="block mb-2 text-sm font-medium text-neutral-800 dark:text-custom-white">
+							<label htmlFor="rePassword" className="block mb-2 text-sm font-medium text-neutral-800 dark:text-custom-white">
 								Confirmar Contraseña
 							</label>
 							<input
-								value={confirmPassword}
-								onChange={(e) => setConfirmPassword(e.target.value)}
+								value={rePassword}
+								onChange={(e) => setRePassword(e.target.value)}
 								type="password"
 								name="confirmPassword"
 								id="confirmPassword"

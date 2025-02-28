@@ -9,6 +9,7 @@ export const obtenerUsuarioPorId = async (id) => {
 }
 
 export const crearUsuario = async (data) => {
+	console.log(data)
 	return await Usuario.create(data)
 }
 

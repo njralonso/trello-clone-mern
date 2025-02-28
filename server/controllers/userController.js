@@ -1,4 +1,5 @@
 import { obtenerUsuario, obtenerUsuarioPorId, crearUsuario, eliminarUsuario } from "../services/userServices.js";
+import bcrypt from "bcrypt"
 
 
 export const getUsuarios = async (req, res) => {
@@ -25,16 +26,23 @@ export const getUsuario = async (req, res) => {
 
 export const nuevoUsuario = async (req, res) => {
 	try {
-		const usuario = await crearUsuario(req.body)
-		res.status(201).json(usuario)
+		const { email, password, rePassword } = req.body
+		console.log(req.body)
+
+		if (password !== rePassword) return res.status(400).json({ message: "Las contraseñas no coinciden" })
+
+		const salt = await bcrypt.genSalt(10)
+		const passwordHash = await bcrypt.hash(password, salt)
+		const userData = { email, password: passwordHash }
+		const newUser = await crearUsuario(userData)
+		res.status(201).json({ message: "Usuario registrado correctamente" })
 	} catch (error) {
-		res.status(500).json({ message: "Error al crear usuario" })
+		res.status(500).json({ message: "Error al registrar usuario" })
 	}
 }
 
 export const byeUsuario = async (req, res) => {
 	try {
-		console.log(req)
 		await eliminarUsuario(req.params.id)
 		res.status(201).json({ message: "Usuario eliminado" })
 	} catch (error) {

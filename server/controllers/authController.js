@@ -21,9 +21,11 @@ export const login = async (req, res) => {
 
 export const register = async (req, res) => {
 	try {
-		const { name, email, password, age } = req.body
+		const { name, email, password, rePassword } = req.body
 		const usuarioExistente = await Usuario.findOne({ email })
+
 		if (usuarioExistente) return res.status(400).json({ message: "El email ya esta registrado" })
+		if (password !== rePassword) return res.status(400).json({ message: "Las contraseñas no coinciden" })
 
 		const salt = await bcrypt.genSalt(10)
 		const passwordHash = await bcrypt.hash(password, salt)

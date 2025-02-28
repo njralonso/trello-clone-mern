@@ -2,7 +2,7 @@ import express from "express"
 import Usuario from "../models/userModel.js";
 import dotenv from "dotenv"
 import { verificarToken } from "../middleware/authMiddleware.js";
-import { login, register } from "../controllers/authController.js";
+import { login } from "../controllers/authController.js";
 import { byeUsuario, getUsuarios, nuevoUsuario, getUsuario } from "../controllers/userController.js";
 dotenv.config();
 const router = express.Router();
@@ -27,7 +27,7 @@ router.get("/perfil", verificarToken, (req, res) => {
 router.get("/usuarios", getUsuarios)
 router.get("/usuario/:id", getUsuario)
 router.get("/eliminar/:id", byeUsuario)
-router.post("/register", register)
+router.post("/register", nuevoUsuario)
 router.post("/login", login)
 
 export default router
