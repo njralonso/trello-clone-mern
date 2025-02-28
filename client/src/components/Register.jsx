@@ -1,16 +1,20 @@
 import { useState } from 'react';
 import TrelloCloneIcon from "../images/icons/trello_clone_icon.svg"
 import { useRegister } from '../hooks/useRegister';
+import { useNavigate, NavLink } from "react-router";
+import { Loader } from './Loader';
 
 const Register = () => {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const [rePassword, setRePassword] = useState('');
 	const { register, loader, error } = useRegister(email, password, rePassword)
+	const navigate = useNavigate(); // Hook para navegar después del login
 
 	const validate = async () => {
 		if (!email.includes("@")) return
 		const newUserData = await register(email, password, rePassword)
+		navigate("/")
 	}
 
 	const handleSubmit = (e) => {
@@ -105,17 +109,31 @@ const Register = () => {
 								</div>
 							</div>
 						</div>
-						<button
-							type="submit"
-							className="w-full py-3 text-sm font-medium text-center hover:rounded-xl hover:font-bold transition-[border-radius] duration-200 hover:underline
+						{!loader ? (
+							<button
+								type="submit"
+								className="w-full py-3 text-sm font-medium text-center hover:rounded-xl hover:font-bold transition-[border-radius] duration-200 hover:underline
                 bg-custom-teal dark:bg-custom-teal
                 text-neutral-800 dark:text-custom-white 
                 hover:text-neutral-200 dark:hover:text-neutral-200"
-						>
-							Registrarse
-						</button>
+							>
+								Registrarse
+							</button>
+						) : (
+							<button
+								type="submit"
+								className="w-full py-3 text-sm font-medium text-center hover:rounded-xl hover:font-bold transition-[border-radius] duration-200 hover:underline
+                bg-custom-teal dark:bg-custom-teal
+                text-neutral-800 dark:text-custom-white 
+                hover:text-neutral-200 dark:hover:text-neutral-200
+								flex justify-center items-center gap-4"
+							>
+								<p>Cargando...</p>
+								<Loader />
+							</button>
+						)}
 						<p className="text-sm font-light text-custom-gray dark:text-custom-white">
-							¿Ya tienes una cuenta? <a href="#" className="font-medium text-custom-teal hover:underline">Inicia sesión</a>
+							¿Ya tienes una cuenta? <NavLink className="font-medium text-custom-teal hover:underline" to="/"> Inicia sesión</NavLink>
 						</p>
 					</form>
 				</div>

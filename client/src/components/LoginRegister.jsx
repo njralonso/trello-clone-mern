@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { useNavigate } from "react-router";
+import { NavLink, useNavigate } from "react-router";
 import TrelloCloneIcon from "../images/icons/trello_clone_icon.svg"
 
 const LoginRegister = () => {
@@ -103,7 +103,8 @@ const LoginRegister = () => {
 							Entrar
 						</button>
 						<p className="text-sm font-light text-custom-gray dark:text-custom-white">
-							¿Todavía no tienes una cuenta? <a href="#" className="font-medium text-custom-teal hover:underline">Regístrate</a>
+							¿Todavía no tienes una cuenta?
+							<NavLink className="font-medium text-custom-teal hover:underline" to="/register"> Regístrate</NavLink>
 						</p>
 					</form>
 				</div>
