@@ -48,9 +48,29 @@ const List = ({ boardId }) => {
 
 
 const ListItem = ({ list }) => {
+	const { task, setRefreshTask, addTask } = useTask(list._id)
+	const { editTitle } = useLists()
 	const [taskName, setTaskName] = useState("")
 	const [isVisible, setIsVisible] = useState(false)
-	const { task, setRefreshTask, addTask } = useTask(list._id)
+	const [listTitle, setListTitle] = useState(false)
+	const [newListTitle, setNewListTitle] = useState("")
+
+	const handleEditListTitle = () => {
+		setListTitle(true)
+		setNewListTitle(list.title)
+	}
+
+	const handleChangeTitle = (e) => {
+		setNewListTitle(e.target.value);
+
+	}
+
+	const handleSendNewTitle = (e) => {
+		e.preventDefault()
+		if (newListTitle.trim() === "") return; // Evitar títulos vacíos
+		editTitle(newListTitle, list._id)
+		setListTitle(false)
+	}
 
 	const handleAddTask = () => {
 		addTask(list, taskName);
@@ -62,8 +82,15 @@ const ListItem = ({ list }) => {
 	return (
 		<div className="min-w-80 w-80 px-6 py-4 bg-custom-gray rounded-lg shadow-lg overflow-hidden">
 			<div className="space-y-4">
-				<p className="text-lg font-semibold text-custom-white">{list.title}</p>
+				{!listTitle ? (
+					<p onDoubleClick={handleEditListTitle} className="text-lg font-semibold text-custom-white">{newListTitle ? newListTitle : list.title}</p>
+				) : (
+					<form onSubmit={handleSendNewTitle}>
+						<input onChange={handleChangeTitle} value={newListTitle} type="text" autoFocus className="w-full" />
+					</form>
+				)}
 			</div>
+
 			<ul className="max-h-[70vh] mt-4 overflow-x-hidden">
 				<Task task={task} />
 			</ul>

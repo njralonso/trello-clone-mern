@@ -1,4 +1,4 @@
-import { createLists, getLists, getListsByBoardId } from "../services/listServices.js";
+import { createLists, getLists, getListsByBoardId, editListTitle } from "../services/listServices.js";
 
 export const newList = async (req, res) => {
 	try {
@@ -24,5 +24,15 @@ export const getListsById = async (req, res) => {
 		res.json(lists)
 	} catch (error) {
 		res.status(500).json({ message: "Error al cargar las listas por id de Board" })
+	}
+}
+
+export const editListTitleController = async (req, res) => {
+	try {
+		const editTitle = await editListTitle(req.body)
+		res.json(editTitle)
+	} catch (error) {
+		res.status(500).json({ message: "Error al editar la lista" })
+
 	}
 }

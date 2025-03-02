@@ -15,4 +15,12 @@ const fetchTask = async () => {
 const fetchTaskById = async (id) => {
 	return await Task.find({ list: id })
 }
-export { insertTask, fetchTask, fetchTaskById }
+
+const editTaskTitleService = async (data) => {
+	const { taskTitle, taskId } = data
+	console.log(taskTitle, taskId)
+	console.log(taskTitle, taskId)
+	return await Task.find({ _id: taskId }).updateOne({ title: taskTitle })
+}
+
+export { insertTask, fetchTask, fetchTaskById, editTaskTitleService }
