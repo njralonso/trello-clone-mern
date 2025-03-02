@@ -15,3 +15,8 @@ export const getLists = async () => {
 export const getListsByBoardId = async (id) => {
 	return await List.find({ board: id })
 }
+
+export const editListTitle = async (data) => {
+	const { newTitle, listId } = data
+	return await List.findOne({ _id: listId }).updateOne({ title: newTitle })
+}
