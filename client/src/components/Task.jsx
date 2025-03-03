@@ -1,17 +1,23 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useTask } from "../hooks/useTasks";
 
-const Task = ({ task }) => {
+const Task = ({ task, onDeleteTask }) => {
+	const [tasks, setTasks] = useState(task);
+
+	useEffect(() => {
+		setTasks(task);
+	}, [task]);
+
 	return (
 		<ul>
-			{task.map((item, i) => (
-				<TaskItem key={i} task={item} />
+			{tasks.map((item) => (
+				<TaskItem key={item._id} task={item} onDelete={onDeleteTask} />
 			))}
 		</ul>
-	)
-}
+	);
+};
 
-const TaskItem = ({ task }) => {
+const TaskItem = ({ task, onDelete }) => {
 	const { editTitle } = useTask()
 	const [isEditing, setIsEditing] = useState(false);
 	const [taskTitle, setTaskTitle] = useState(task.title);
@@ -37,7 +43,7 @@ const TaskItem = ({ task }) => {
 			className="bg-custom-black p-3 rounded-lg shadow-sm border border-custom-gray text-custom-white hover:bg-custom-teal/50 transition-all"
 		>
 			{!isEditing ? (
-				<p className="break-words whitespace-normal">{isEditing ? task.title : taskTitle}</p>
+				< p className="break-words whitespace-normal">{isEditing ? task.title : taskTitle}</p>
 			) : (
 				<form onSubmit={handleSubmit}>
 					<input
@@ -48,8 +54,9 @@ const TaskItem = ({ task }) => {
 						className="w-full"
 					/>
 				</form>
-			)}
-		</li>
+			)
+			}
+		</li >
 	);
 };
 

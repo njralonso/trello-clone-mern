@@ -54,6 +54,12 @@ const ListItem = ({ list }) => {
 	const [isVisible, setIsVisible] = useState(false)
 	const [listTitle, setListTitle] = useState(false)
 	const [newListTitle, setNewListTitle] = useState("")
+	const [tasks, setTasks] = useState(task);
+
+
+	const handleDeleteTask = (taskId) => {
+		setTasks(tasks.filter((task) => task.id !== taskId));
+	};
 
 	const handleEditListTitle = () => {
 		setListTitle(true)
@@ -62,7 +68,6 @@ const ListItem = ({ list }) => {
 
 	const handleChangeTitle = (e) => {
 		setNewListTitle(e.target.value);
-
 	}
 
 	const handleSendNewTitle = (e) => {
@@ -92,7 +97,7 @@ const ListItem = ({ list }) => {
 			</div>
 
 			<ul className="max-h-[70vh] mt-4 overflow-x-hidden">
-				<Task task={task} />
+				<Task tasks={task} onDeleteTask={handleDeleteTask} />;
 			</ul>
 
 			{/* Formulario dentro del componente de la lista */}
