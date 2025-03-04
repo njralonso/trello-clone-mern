@@ -23,4 +23,10 @@ const editTaskTitleService = async (data) => {
 	return await Task.find({ _id: taskId }).updateOne({ title: taskTitle })
 }
 
+
+export const deleteTaskService = async (data) => {
+	const { taskId } = data
+	return await Task.find({ _id: taskId }).deleteOne({ _id: taskId })
+}
+
 export { insertTask, fetchTask, fetchTaskById, editTaskTitleService }

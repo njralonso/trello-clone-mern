@@ -1,4 +1,4 @@
-import { createLists, getLists, getListsByBoardId, editListTitle } from "../services/listServices.js";
+import { createLists, getLists, getListsByBoardId, editListTitle, deleteListService } from "../services/listServices.js";
 
 export const newList = async (req, res) => {
 	try {
@@ -33,6 +33,16 @@ export const editListTitleController = async (req, res) => {
 		res.json(editTitle)
 	} catch (error) {
 		res.status(500).json({ message: "Error al editar la lista" })
+
+	}
+}
+
+export const deleteListController = async (req, res) => {
+	try {
+		const deleteList = deleteListService(req.body)
+		res.json({ message: "Lista eliminada correctamente" })
+	} catch (error) {
+		res.status(500).json({ message: "Error al eliminar la lista" })
 
 	}
 }

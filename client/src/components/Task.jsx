@@ -1,16 +1,18 @@
 import { useState, useEffect } from "react"
-import { useTask } from "../hooks/useTasks";
+import { useTask } from "../hooks/tasks/useTasks";
+import useTaskRemove from "../hooks/tasks/useTaskRemove";
 
-const Task = ({ task }) => { // 1 - tareas
+const Task = ({ task }) => {
 	const [tasks, setTasks] = useState([]);
+	const { taskRemove } = useTaskRemove()
 
 	useEffect(() => {
-		setTasks([...task]) // 2 guarda tareas en estado
-	}, [task]) // 3 actualiza el estado cuando se actualizan las tareas
+		setTasks([...task])
+	}, [task])
 
 	const handleDeleteTask = (taskId) => {
-		setTasks(tasks.filter((task) => task._id !== taskId)); // 4
-		console.log(taskId)
+		taskRemove(taskId)
+		setTasks((prevTasks) => prevTasks.filter((task) => task._id !== taskId));
 	};
 
 	return (
@@ -37,11 +39,11 @@ const TaskItem = ({ task, handleDeleteTask }) => {
 		setTaskTitle(e.target.value);
 	};
 
-	const handleSubmit = (e) => {
+	const handleSubmit = async (e) => {
 		e.preventDefault();
 		if (taskTitle.trim() === "") return;
 		setIsEditing(false);
-		editTitle(task._id, taskTitle)
+		await editTitle(task._id, taskTitle)
 	};
 
 	return (
@@ -52,7 +54,7 @@ const TaskItem = ({ task, handleDeleteTask }) => {
 			{!isEditing ? (
 				<>
 					< p className="break-words whitespace-normal">{isEditing ? task.title : taskTitle}</p>
-					<button onClick={() => handleDeleteTask(task._id)}>❌</button>
+					<button onClick={() => handleDeleteTask(task._id)} className="hover:bg-white hover:rounded-md">❌</button>
 				</>
 			) : (
 				<form onSubmit={handleSubmit}>
