@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useLists } from "../hooks/useLists"
 import { useTask } from "../hooks/useTasks"
 import FormList from "./FormList"
@@ -54,12 +54,6 @@ const ListItem = ({ list }) => {
 	const [isVisible, setIsVisible] = useState(false)
 	const [listTitle, setListTitle] = useState(false)
 	const [newListTitle, setNewListTitle] = useState("")
-	const [tasks, setTasks] = useState(task);
-
-
-	const handleDeleteTask = (taskId) => {
-		setTasks(tasks.filter((task) => task.id !== taskId));
-	};
 
 	const handleEditListTitle = () => {
 		setListTitle(true)
@@ -97,7 +91,7 @@ const ListItem = ({ list }) => {
 			</div>
 
 			<ul className="max-h-[70vh] mt-4 overflow-x-hidden">
-				<Task tasks={task} onDeleteTask={handleDeleteTask} />;
+				<Task task={task} color={"red"} />
 			</ul>
 
 			{/* Formulario dentro del componente de la lista */}

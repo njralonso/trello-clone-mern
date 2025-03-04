@@ -1,26 +1,33 @@
 import { useState, useEffect } from "react"
 import { useTask } from "../hooks/useTasks";
 
-const Task = ({ task, onDeleteTask }) => {
-	const [tasks, setTasks] = useState(task);
+const Task = ({ task }) => { // 1 - tareas
+	const [tasks, setTasks] = useState([]);
 
 	useEffect(() => {
-		setTasks(task);
-	}, [task]);
+		setTasks([...task]) // 2 guarda tareas en estado
+	}, [task]) // 3 actualiza el estado cuando se actualizan las tareas
+
+	const handleDeleteTask = (taskId) => {
+		setTasks(tasks.filter((task) => task._id !== taskId)); // 4
+		console.log(taskId)
+	};
 
 	return (
 		<ul>
 			{tasks.map((item) => (
-				<TaskItem key={item._id} task={item} onDelete={onDeleteTask} />
+				<TaskItem key={item._id} task={item} handleDeleteTask={handleDeleteTask} />
 			))}
 		</ul>
 	);
 };
 
-const TaskItem = ({ task, onDelete }) => {
+
+const TaskItem = ({ task, handleDeleteTask }) => {
 	const { editTitle } = useTask()
 	const [isEditing, setIsEditing] = useState(false);
 	const [taskTitle, setTaskTitle] = useState(task.title);
+
 
 	const handleDoubleClick = () => {
 		setIsEditing(true);
@@ -43,7 +50,10 @@ const TaskItem = ({ task, onDelete }) => {
 			className="bg-custom-black p-3 rounded-lg shadow-sm border border-custom-gray text-custom-white hover:bg-custom-teal/50 transition-all"
 		>
 			{!isEditing ? (
-				< p className="break-words whitespace-normal">{isEditing ? task.title : taskTitle}</p>
+				<>
+					< p className="break-words whitespace-normal">{isEditing ? task.title : taskTitle}</p>
+					<button onClick={() => handleDeleteTask(task._id)}>❌</button>
+				</>
 			) : (
 				<form onSubmit={handleSubmit}>
 					<input
@@ -54,8 +64,7 @@ const TaskItem = ({ task, onDelete }) => {
 						className="w-full"
 					/>
 				</form>
-			)
-			}
+			)}
 		</li >
 	);
 };

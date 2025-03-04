@@ -4,7 +4,6 @@ import { getTaskController, newTaskController, getTaskByIdController, editTaskTi
 
 import express from "express"
 import dotenv from "dotenv"
-import { editListTitle } from "../services/listServices.js"
 dotenv.config()
 
 const router = express.Router()
