@@ -20,3 +20,8 @@ export const editListTitle = async (data) => {
 	const { newTitle, listId } = data
 	return await List.findOne({ _id: listId }).updateOne({ title: newTitle })
 }
+
+export const deleteListService = async (data) => {
+	const { listId } = data
+	return await List.findOne({ _id: listId }).deleteOne({ _id: listId })
+}

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import TrelloCloneIcon from "../images/icons/trello_clone_icon.svg"
-import { useRegister } from '../hooks/useRegister';
+import { useRegister } from '../hooks/register/useRegister';
 import { useNavigate, NavLink } from "react-router";
 import { Loader } from './Loader';
 

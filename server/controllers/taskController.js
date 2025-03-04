@@ -1,4 +1,4 @@
-import { insertTask, fetchTask, fetchTaskById, editTaskTitleService } from "../services/taskService.js";
+import { insertTask, fetchTask, fetchTaskById, editTaskTitleService, deleteTaskService } from "../services/taskService.js";
 
 const newTaskController = async (req, res) => {
 	try {
@@ -33,6 +33,15 @@ const editTaskTitleController = async (req, res) => {
 		res.status(201).json(task)
 	} catch (error) {
 		res.status(500).json({ message: "Error al obtener las tareas" })
+	}
+}
+
+export const deleteTaskController = async (req, res) => {
+	try {
+		const deleteTask = await deleteTaskService(req.body)
+		res.json(deleteTask)
+	} catch (error) {
+		res.status(500).json({ message: "Error al eliminar la tarea" })
 	}
 }
 
