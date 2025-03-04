@@ -39,8 +39,8 @@ export const editListTitleController = async (req, res) => {
 
 export const deleteListController = async (req, res) => {
 	try {
-		const deleteList = deleteListService(req.body)
-		res.json({ message: "Lista eliminada correctamente" })
+		const deleteList = await deleteListService(req.body)
+		return res.json({ message: deleteList });
 	} catch (error) {
 		res.status(500).json({ message: "Error al eliminar la lista" })
 
