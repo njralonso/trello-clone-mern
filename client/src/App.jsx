@@ -5,24 +5,19 @@ import Boards from './views/Boards'
 import Board from './views/Board'
 import { Routes, Route } from "react-router";
 import ProtectedRoute from './routes/ProtectedRoute';
-import { HTML5Backend } from 'react-dnd-html5-backend'
-import { DndProvider } from "react-dnd"
 import Register from './components/Register'
 
 function App() {
 	return (
-		<DndProvider backend={HTML5Backend}>
-			<Routes>
-				<Route path="/register" element={<Register />} />
-				<Route path="/" element={<Login />} />
-				<Route element={<ProtectedRoute />}>
-					<Route path="/home" element={<Home />} />
-					<Route path="/boards" element={<Boards />} />
-					<Route path="/boards/:name" element={<Board />} />
-				</Route>
-			</Routes>
-		</DndProvider>
-
+		<Routes>
+			<Route path="/register" element={<Register />} />
+			<Route path="/" element={<Login />} />
+			<Route element={<ProtectedRoute />}>
+				<Route path="/home" element={<Home />} />
+				<Route path="/boards" element={<Boards />} />
+				<Route path="/boards/:name" element={<Board />} />
+			</Route>
+		</Routes>
 	)
 }
 

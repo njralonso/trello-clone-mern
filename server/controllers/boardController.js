@@ -1,4 +1,4 @@
-import { createNewBoard, getBoards, getBoardsById } from "../services/boardServices.js";
+import { createNewBoard, getBoards, getBoardsById, deleteBoardService } from "../services/boardServices.js";
 
 export const newBoard = async (req, res) => {
 	try {
@@ -24,6 +24,15 @@ export const getBoardById = async (req, res) => {
 		res.json(board)
 	} catch (error) {
 		res.status(500).json({ message: "Error al cargar el Board" })
+	}
+}
+
+export const deleteBoardController = async (req, res) => {
+	try {
+		const deleteBoard = await deleteBoardService(req.body)
+		res.json({ message: "Board eliminado correctamente" })
+	} catch (error) {
+		res.status(500).json({ message: "Error al eliminar el board" })
 	}
 }
 

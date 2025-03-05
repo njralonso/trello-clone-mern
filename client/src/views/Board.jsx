@@ -7,16 +7,16 @@ const Board = () => {
 	const { name } = useParams()
 	const { board } = useGetBoardById(name);
 
-	if (!board) return <p>Cargando...</p>
-
 	return (
 		<Layout>
-			<div className="flex flex-col max-w-full overflow-x-auto">
-				<h1 className="dark:text-custom-white text-custom-black font-bold text-5xl mb-6 tracking-wide">
-					{board.title}
-				</h1>
-				<List boardId={name} />
-			</div>
+			{board &&
+				<div className="flex flex-col max-w-full overflow-x-auto">
+					<h1 className="dark:text-custom-white text-custom-black font-bold text-5xl mb-6 tracking-wide">
+						{board.title}
+					</h1>
+					<List boardId={name} />
+				</div>
+			}
 		</Layout>
 	)
 }

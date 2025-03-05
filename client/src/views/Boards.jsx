@@ -14,8 +14,8 @@ const Boards = () => {
 
 	return (
 		<>
-			<Modal isOpen={isOpen} closeModal={() => setIsOpen(false)} setRefresh={setRefresh} />
 			<Layout>
+				<Modal isOpen={isOpen} closeModal={() => setIsOpen(false)} setRefresh={setRefresh} />
 				<section className="dark:bg-custom-black w-full">
 					<div className="container">
 						<div
@@ -40,11 +40,11 @@ const Boards = () => {
 									className="dark:bg-custom-gray dark:text-custom-white text-center 
 									hover:inset-ring-2 hover:inset-ring-custom-teal hover:dark:bg-custom-gray/20 rounded-lg"
 								>
-									<li>
-										<NavLink className="block py-4 px-8" to={`/boards/${board._id}`} end>
+									<NavLink to={`/boards/${board._id}`} className="block py-4 px-8">
+										<li>
 											<h3>{board.title}</h3>
-										</NavLink>
-									</li>
+										</li>
+									</NavLink>
 								</ul>
 							))}
 						</div>
