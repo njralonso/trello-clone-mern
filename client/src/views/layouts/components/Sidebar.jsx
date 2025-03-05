@@ -1,6 +1,10 @@
-import { NavLink } from "react-router-dom"
+import { NavLink, useNavigate } from "react-router-dom"
+import useGetBoards from "../../../hooks/useGetBoards"
 
 const SideBar = () => {
+	const navigate = useNavigate()
+	const { board } = useGetBoards()
+
 	return (
 		<aside
 			id="logo-sidebar"
@@ -23,6 +27,11 @@ const SideBar = () => {
 							</svg>
 							<span className="ms-3">Tableros</span>
 						</NavLink>
+						<ul>
+							{board.map(b => (
+								<li key={b._id} onClick={() => { navigate(`/boards/${b._id}`) }} className="cursor-pointer ml-12 text-custom-white hover:underline">{b.title}</li>
+							))}
+						</ul>
 					</li>
 					<li>
 						<a href="#" className="flex items-center p-2 text-custom-white rounded-lg hover:bg-white/10 group"> {/* Estilos de cristal y texto blanco */}

@@ -9,7 +9,7 @@ export function useTask(listId) {
 			const response = await fetch(`http://localhost:3000/api/getTasks/${listId}`)
 			const data = await response.json()
 			setTask(data)
-			setRefreshTask(false)
+			setRefreshTask(true)
 		} catch (error) { }
 	}
 

@@ -9,7 +9,7 @@ export function useLists(boardId) {
 			const response = await fetch(`http://localhost:3000/api/getLists/${boardId}`)
 			const data = await response.json()
 			setLists(data)
-			setRefreshList(false)
+			setRefreshList(true)
 		}
 		catch (error) { }
 	}
@@ -47,5 +47,5 @@ export function useLists(boardId) {
 		fetchLists()
 	}, [refreshList])
 
-	return { lists, addLists, setRefreshList, editTitle }
+	return { lists, addLists, setRefreshList, editTitle, fetchLists }
 }
