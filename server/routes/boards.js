@@ -1,4 +1,4 @@
-import { newBoard, getBoard, getBoardById } from "../controllers/boardController.js"
+import { newBoard, getBoard, getBoardById, deleteBoardController } from "../controllers/boardController.js"
 import { newList, getList, getListsById, editListTitleController, deleteListController } from "../controllers/listController.js"
 import { getTaskController, newTaskController, getTaskByIdController, editTaskTitleController, deleteTaskController } from "../controllers/taskController.js"
 
@@ -11,6 +11,7 @@ const router = express.Router()
 router.get("/getBoards", getBoard)
 router.get("/getBoards/:id", getBoardById)
 router.post("/create-new-board", newBoard)
+router.post("/deleteBoard", deleteBoardController)
 
 router.get("/getLists", getList)
 router.get("/getLists/:id", getListsById)
