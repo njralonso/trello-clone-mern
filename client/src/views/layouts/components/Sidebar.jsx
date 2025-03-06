@@ -28,8 +28,8 @@ const SideBar = () => {
 							<span className="ms-3">Tableros</span>
 						</NavLink>
 						<ul>
-							{board.map(b => (
-								<li key={b._id} onClick={() => { navigate(`/boards/${b._id}`) }} className="cursor-pointer ml-12 text-custom-white hover:underline">{b.title}</li>
+							{board.map((b, i) => (
+								<li key={i} onClick={() => { navigate(`/boards/${b._id}`) }} className="cursor-pointer ml-12 text-custom-white hover:underline">{b.title}</li>
 							))}
 						</ul>
 					</li>

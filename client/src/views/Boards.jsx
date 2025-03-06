@@ -4,13 +4,13 @@ import AddNewBoardSvg from "../images/icons/circle_add.svg"
 import Modal from "../components/Modals/Layout/Modal";
 import useGetBoards from "../hooks/useGetBoards";
 import Layout from "../views/layouts/_layout"
-const slugify = (text) => text.toLowerCase().replace(/\s+/g, '-');
-// const unslugify = (slug) => slug.replace(/-/g, ' ');
 
 const Boards = () => {
 	// Llamamos a los boards del backend
 	const { board, setRefresh } = useGetBoards()
 	const [isOpen, setIsOpen] = useState(false);
+
+	console.log(board, "componente Boards")
 
 	return (
 		<>
@@ -34,9 +34,9 @@ const Boards = () => {
 									<img src={AddNewBoardSvg} alt="add_new_board" className="size-8 h-full" />
 								</div>
 							</div>
-							{board.map((board) => (
+							{board.map((board, i) => (
 								<ul
-									key={board._id}
+									key={i}
 									className="dark:bg-custom-gray dark:text-custom-white text-center 
 									hover:inset-ring-2 hover:inset-ring-custom-teal hover:dark:bg-custom-gray/20 rounded-lg"
 								>
