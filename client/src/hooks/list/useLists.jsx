@@ -1,15 +1,21 @@
 import { useState, useEffect } from "react"
+import { useAppDispatch, useAppSelector } from "../../hooks"
+// import { setLists } from "../../feature/lists/listSlice"
 
 export function useLists(boardId) {
-	const [lists, setLists] = useState([])
-	const [refreshList, setRefreshList] = useState(false)
+	// const [lists, setLists] = useState([])
+	// const [refreshList, setRefreshList] = useState(false)
+	const dispatch = useAppDispatch()
+	const { updateAllLists } = useAppSelector(state => state.lists)
+	console.log(updateAllLists, "lists de store")
 
 	async function fetchLists() {
 		try {
 			const response = await fetch(`http://localhost:3000/api/getLists/${boardId}`)
 			const data = await response.json()
-			setLists(data)
-			setRefreshList(false)
+			console.log(data, "DATA DE LISTAS")
+			dispatch(setLists(data))
+			// setRefreshList(false)
 		}
 		catch (error) { }
 	}
@@ -43,9 +49,10 @@ export function useLists(boardId) {
 		}
 	}
 
-	useEffect(() => {
-		fetchLists()
-	}, [refreshList])
+	// useEffect(() => {
+	fetchLists()
+	// }, [refreshList])
 
-	return { lists, addLists, setRefreshList, editTitle }
+	return { addLists, editTitle }
+	// return { lists, addLists, setRefreshList, editTitle }
 }

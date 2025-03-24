@@ -2,7 +2,7 @@ import { useState } from 'react';
 import TrelloCloneIcon from "../images/icons/trello_clone_icon.svg"
 import { useRegister } from '../hooks/register/useRegister';
 import { useNavigate, NavLink } from "react-router";
-import { Loader } from './Loader';
+// import { Loader } from './Loader';
 
 const Register = () => {
 	const [email, setEmail] = useState('');
@@ -129,7 +129,7 @@ const Register = () => {
 								flex justify-center items-center gap-4"
 							>
 								<p>Cargando...</p>
-								<Loader />
+								{/* <Loader /> */}
 							</button>
 						)}
 						<p className="text-sm font-light text-custom-gray dark:text-custom-white">

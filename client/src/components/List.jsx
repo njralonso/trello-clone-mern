@@ -5,19 +5,23 @@ import FormList from "./FormList"
 import FormTask from "./FormTask"
 import Task from "./Task"
 import { useRemoveList } from "../hooks/list/useRemoveList"
+import { useAppSelector } from "../hooks"
+import { selectAllLists } from "../feature/lists/listSlice"
 
 const List = ({ boardId }) => {
-	const { lists, addLists, setRefreshList } = useLists(boardId)
+	// const { lists, addLists, setRefreshList } = useLists(boardId)
+	const { addLists } = useLists(boardId)
+	const lists = useAppSelector(selectAllLists);
 	const { removeList } = useRemoveList()
 	const [showAddListButton, setShowAddListButton] = useState(false)
 	const [listName, setListName] = useState("")
-	const [list, setList] = useState([...lists])
+	// const [list, setList] = useState([...lists])
+	console.log("sdafaf", lists, "LISTS componente List")
+	// if (!list) return <p>Cargando...</p>
 
-	if (!list) return <p>Cargando...</p>
-
-	useEffect(() => {
-		setList([...lists])
-	}, [lists])
+	// useEffect(() => {
+	// 	setList([...lists])
+	// }, [lists])
 
 
 	const handleRemoveList = (listId) => {
@@ -33,16 +37,16 @@ const List = ({ boardId }) => {
 	const handleAddList = () => {
 		addLists(boardId, listName)
 		setShowAddListButton(false)
-		setRefreshList(true)
+		// setRefreshList(true)
 		setListName("")
 	}
 
 	return (
 		<>
 			<div className="flex dark:text-custom-white gap-4">
-				{list.map((l, i) => (
+				{/* {list.map((l, i) => (
 					<ListItem key={i} list={l} handleRemoveList={handleRemoveList} />
-				))}
+				))} */}
 
 				{!showAddListButton ? (
 					<button
