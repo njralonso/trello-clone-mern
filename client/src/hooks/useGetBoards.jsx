@@ -9,8 +9,8 @@ const useGetBoards = () => {
 			const response = await fetch("http://localhost:3000/api/getBoards")
 			const data = await response.json()
 			setBoards(data)
-			setRefresh(false)
 		} catch (error) { }
+		setRefresh(false)
 	}
 
 

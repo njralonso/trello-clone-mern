@@ -1,10 +1,10 @@
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { useLists } from "../hooks/list/useLists"
-import { useTask } from "../hooks/tasks/useTasks"
 import FormList from "./FormList"
 import FormTask from "./FormTask"
 import Task from "./Task"
 import { useRemoveList } from "../hooks/list/useRemoveList"
+<<<<<<< HEAD
 import { useAppSelector } from "../hooks"
 import { selectAllLists } from "../feature/lists/listSlice"
 
@@ -12,9 +12,20 @@ const List = ({ boardId }) => {
 	// const { lists, addLists, setRefreshList } = useLists(boardId)
 	const { addLists } = useLists(boardId)
 	const lists = useAppSelector(selectAllLists);
+=======
+import { useCreateList } from "../hooks/list/useCreateList"
+import { useGetLists } from "../hooks/list/useGetLists"
+import { useCreateTask } from "../hooks/tasks/useCreateTask"
+import { useGetTasks } from "../hooks/tasks/useGetTasks"
+
+const List = ({ boardId }) => {
+	const { editTitle } = useLists()
+	const { addLists } = useCreateList()
+>>>>>>> a7d36f48fab68147cdda6bd689ab3a36e23e3bd9
 	const { removeList } = useRemoveList()
-	const [showAddListButton, setShowAddListButton] = useState(false)
+	const { lists, setLists, setRefreshLists } = useGetLists(boardId)
 	const [listName, setListName] = useState("")
+<<<<<<< HEAD
 	// const [list, setList] = useState([...lists])
 	console.log("sdafaf", lists, "LISTS componente List")
 	// if (!list) return <p>Cargando...</p>
@@ -22,11 +33,15 @@ const List = ({ boardId }) => {
 	// useEffect(() => {
 	// 	setList([...lists])
 	// }, [lists])
+=======
+	const [showAddListButton, setShowAddListButton] = useState(false)
+>>>>>>> a7d36f48fab68147cdda6bd689ab3a36e23e3bd9
 
+	console.log(lists, "componente List")
 
 	const handleRemoveList = (listId) => {
 		removeList(listId)
-		setList(prevList => prevList.filter(list => list._id !== listId))
+		setLists(prevList => prevList.filter(list => list._id !== listId))
 	}
 
 	// Shows form to add new list
@@ -34,19 +49,36 @@ const List = ({ boardId }) => {
 		setShowAddListButton(true)
 	}
 
-	const handleAddList = () => {
-		addLists(boardId, listName)
+	const handleAddList = async () => {
+		await addLists(boardId, listName)
+		setRefreshLists(true)
 		setShowAddListButton(false)
+<<<<<<< HEAD
 		// setRefreshList(true)
+=======
+>>>>>>> a7d36f48fab68147cdda6bd689ab3a36e23e3bd9
 		setListName("")
+	}
+
+	const handleSendNewTitle = async (e) => {
+		e.preventDefault()
+		if (newListTitle.trim() === "") return; // Evitar títulos vacíos
+		await editTitle(newListTitle, lists._id)
+		setListTitle(false)
 	}
 
 	return (
 		<>
 			<div className="flex dark:text-custom-white gap-4">
+<<<<<<< HEAD
 				{/* {list.map((l, i) => (
 					<ListItem key={i} list={l} handleRemoveList={handleRemoveList} />
 				))} */}
+=======
+				{lists.map((l, i) => (
+					<ListItem key={i} list={l} handleRemoveList={handleRemoveList} handleSendNewTitle={handleSendNewTitle} setRefreshLists={setRefreshLists} />
+				))}
+>>>>>>> a7d36f48fab68147cdda6bd689ab3a36e23e3bd9
 
 				{!showAddListButton ? (
 					<button
@@ -63,17 +95,13 @@ const List = ({ boardId }) => {
 	)
 }
 
-
-const ListItem = ({ list, handleRemoveList }) => {
-	const { task, setRefreshTask, addTask } = useTask(list._id)
-	const { editTitle } = useLists()
-	const { removeList } = useRemoveList()
+const ListItem = ({ list, handleRemoveList, handleSendNewTitle }) => {
+	const { addTask } = useCreateTask(list._id)
+	const { setRefreshTask } = useGetTasks(list._id)
 	const [taskName, setTaskName] = useState("")
 	const [isVisible, setIsVisible] = useState(false)
 	const [listTitle, setListTitle] = useState(false)
 	const [newListTitle, setNewListTitle] = useState("")
-
-
 
 	const handleEditListTitle = () => {
 		setListTitle(true)
@@ -84,17 +112,10 @@ const ListItem = ({ list, handleRemoveList }) => {
 		setNewListTitle(e.target.value);
 	}
 
-	const handleSendNewTitle = (e) => {
-		e.preventDefault()
-		if (newListTitle.trim() === "") return; // Evitar títulos vacíos
-		editTitle(newListTitle, list._id)
-		setListTitle(false)
-	}
-
-	const handleAddTask = () => {
-		addTask(list, taskName);
+	const handleAddTask = async () => {
+		await addTask(list, taskName);
+		setRefreshTask(true)
 		setIsVisible(false);
-		setRefreshTask(true);
 		setTaskName("");
 	};
 
@@ -112,7 +133,7 @@ const ListItem = ({ list, handleRemoveList }) => {
 			</div>
 
 			<ul className="max-h-[70vh] mt-4 overflow-x-hidden">
-				<Task task={task} color={"red"} />
+				<Task list={list._id} color={"red"} />
 			</ul>
 
 			{/* Formulario dentro del componente de la lista */}

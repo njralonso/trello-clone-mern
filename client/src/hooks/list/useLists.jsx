@@ -2,6 +2,7 @@ import { useState, useEffect } from "react"
 import { useAppDispatch, useAppSelector } from "../../hooks"
 // import { setLists } from "../../feature/lists/listSlice"
 
+<<<<<<< HEAD
 export function useLists(boardId) {
 	// const [lists, setLists] = useState([])
 	// const [refreshList, setRefreshList] = useState(false)
@@ -34,6 +35,12 @@ export function useLists(boardId) {
 		} catch (error) { }
 	}
 
+=======
+export function useLists() {
+	const [lists, setLists] = useState([])
+	const [refreshList, setRefreshList] = useState(false)
+
+>>>>>>> a7d36f48fab68147cdda6bd689ab3a36e23e3bd9
 	async function editTitle(newTitle, listId) {
 		const response = await fetch("http://localhost:3000/api/changeListTitle", {
 			method: "POST",
@@ -49,10 +56,14 @@ export function useLists(boardId) {
 		}
 	}
 
+<<<<<<< HEAD
 	// useEffect(() => {
 	fetchLists()
 	// }, [refreshList])
 
 	return { addLists, editTitle }
 	// return { lists, addLists, setRefreshList, editTitle }
+=======
+	return { lists, setRefreshList, editTitle }
+>>>>>>> a7d36f48fab68147cdda6bd689ab3a36e23e3bd9
 }

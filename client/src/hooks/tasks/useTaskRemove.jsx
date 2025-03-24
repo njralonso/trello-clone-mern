@@ -10,7 +10,6 @@ function useTaskRemove() {
 
 			if (!response.ok) throw new Error(`Error ${response.status}: No se pudo eliminar la tarea`)
 			const data = await response.json()
-			return data
 		} catch (error) {
 			console.error("Error al eliminar la tarea:", error.message);
 		}
