@@ -1,21 +1,85 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSelector } from 'reselect';
+
+export const fetchLists = createAsyncThunk("lists/fetchLists", async (boardId, { rejectWithValue }) => {
+	try {
+		const response = await fetch(`http://localhost:3000/api/getLists/${boardId}`)
+		if (!response.ok) {
+			throw new Error("Error fetching lists")
+		}
+		const data = await response.json()
+		return data
+	} catch (error) {
+		return rejectWithValue(error.message)
+	}
+})
+
+export const editListTitle = createAsyncThunk("lists/editListTitle", async ({ newTitle, listId }) => {
+	const response = await fetch("http://localhost:3000/api/changeListTitle", {
+		method: "POST",
+		mode: "cors",
+		headers: { "Content-Type": "application/json" },
+		body: JSON.stringify({ newTitle, listId })
+	})
+	try {
+		const data = await response.json()
+		console.log(data, "data del editListTitle en el slice")
+		// if (!data.ok) throw new Error("Error al enviar la petición")
+	} catch (error) {
+		console.log(error, "Error del catch")
+	}
+})
 
 const listSlice = createSlice({
 	name: 'lists',
 	initialState: {
-		lists: [{ id: 1, title: "Lista 1" }, { id: 2, title: "Lista 2" }],
-		status: null,
+		lists: [],
+		status: "idle",
 		error: null
 	},
 	reducers: {
-		getLists: (state) => state.lists,
 		setLists: (state, action) => {
 			state.lists = action.payload
 		},
+		setListTitle: (state, action) => {
+			const { listId, newTitle } = action.payload
+			const listToUpdate = state.lists.find((list) => list._id === listId)
+			if (listToUpdate) {
+				listToUpdate.title = newTitle
+			}
+		}
+	},
+	extraReducers: (builder) => {
+		builder
+			// Case to fetch lists
+			.addCase(fetchLists.pending, (state) => {
+				state.status = "loading"
+				state.error = null
+			})
+			.addCase(fetchLists.fulfilled, (state, action) => {
+				state.status = "succeeded"
+				state.lists = action.payload
+			})
+			.addCase(fetchLists.rejected, (state, action) => {
+				state.status = "failed"
+				state.error = action.payload
+			})
+			// Case to edit list title
+			.addCase(editListTitle.fulfilled, (state, action) => {
+				const { newTitle, listId } = action.meta.arg
+				const listToUpdate = state.lists.find((list) => list._id === listId)
+				if (listToUpdate) {
+					listToUpdate.title = newTitle
+				}
+			})
 	}
 })
 
-export const { setLists } = listSlice.actions;
 export default listSlice.reducer;
+export const { setLists } = listSlice.actions;
 export const selectAllLists = (state) => state.lists.lists
-export const updateAllLists = (state, action) => state.lists.lists.push(action.payload)
+
+const selectLists = (state) => state.lists.lists;
+export const allTitles = createSelector([selectLists], (lists) => {
+	return lists.map((list) => list.title);
+});

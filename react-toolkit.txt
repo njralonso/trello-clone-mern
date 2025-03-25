@@ -1,0 +1,10 @@
+itemSlice.js/ts
+- Se crea el slice de Redux para manejar el estado de los items.
+- Se define el estado inicial, las acciones y los reducers para agregar, eliminar y actualizar items.
+
+store.js/ts
+- Se agrega el itemSlice al store de Redux. como sliceName:itemSlice.
+
+#####################################
+## Solución problemas ReduxToolkit ##
+-- Al hacer un map para extraer valores desde un slice, daba error en el renderizado por que se devolvían valores diferentes, la solución es instalar "npm i reselect" de redux para manejar los selectores y evitar el error de renderizado.

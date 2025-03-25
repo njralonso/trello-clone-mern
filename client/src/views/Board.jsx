@@ -14,7 +14,7 @@ const Board = () => {
 					<h1 className="dark:text-custom-white text-custom-black font-bold text-5xl mb-6 tracking-wide">
 						{board.title}
 					</h1>
-					<List boardId={name} />
+					<List boardId={name} boardLists={board.lists} />
 				</div>
 			}
 		</Layout>

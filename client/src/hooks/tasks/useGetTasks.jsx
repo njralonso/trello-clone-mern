@@ -15,7 +15,6 @@ export function useGetTasks(listId) {
 	}
 
 	useEffect(() => {
-		console.log(refreshTask, "OK")
 		fetchTasks()
 	}, [])
 

@@ -1,22 +1,18 @@
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
+import { useAppDispatch, useAppSelector } from "../../hooks"
+import { fetchLists, selectAllLists } from "../../feature/lists/listSlice"
 
 export function useGetLists(boardId) {
-	const [lists, setLists] = useState([])
-	const [refreshLists, setRefreshLists] = useState(false)
-
-	async function fetchLists() {
-		try {
-			const response = await fetch(`http://localhost:3000/api/getLists/${boardId}`)
-			const data = await response.json()
-			setLists(data)
-		}
-		catch (error) { }
-		setRefreshLists(false)
-	}
+	const dispatch = useAppDispatch();
+	const lists = useAppSelector(selectAllLists);
+	const status = useAppSelector((state) => state.lists.status);
+	const error = useAppSelector((state) => state.lists.error);
 
 	useEffect(() => {
-		fetchLists()
-	}, [refreshLists])
+		if (status === "idle") {  // ✅ Solo si no se ha cargado antes
+			dispatch(fetchLists(boardId));
+		}
+	}, [dispatch, boardId, status]); // ✅ Se ejecuta solo cuando `status` cambia
 
-	return { lists, setLists, setRefreshLists, fetchLists }
+	return { lists, status, error };
 }
