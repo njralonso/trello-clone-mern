@@ -4,15 +4,6 @@ import FormList from "./FormList"
 import FormTask from "./FormTask"
 import Task from "./Task"
 import { useRemoveList } from "../hooks/list/useRemoveList"
-<<<<<<< HEAD
-import { useAppSelector } from "../hooks"
-import { selectAllLists } from "../feature/lists/listSlice"
-
-const List = ({ boardId }) => {
-	// const { lists, addLists, setRefreshList } = useLists(boardId)
-	const { addLists } = useLists(boardId)
-	const lists = useAppSelector(selectAllLists);
-=======
 import { useCreateList } from "../hooks/list/useCreateList"
 import { useGetLists } from "../hooks/list/useGetLists"
 import { useCreateTask } from "../hooks/tasks/useCreateTask"
@@ -21,21 +12,10 @@ import { useGetTasks } from "../hooks/tasks/useGetTasks"
 const List = ({ boardId }) => {
 	const { editTitle } = useLists()
 	const { addLists } = useCreateList()
->>>>>>> a7d36f48fab68147cdda6bd689ab3a36e23e3bd9
 	const { removeList } = useRemoveList()
 	const { lists, setLists, setRefreshLists } = useGetLists(boardId)
 	const [listName, setListName] = useState("")
-<<<<<<< HEAD
-	// const [list, setList] = useState([...lists])
-	console.log("sdafaf", lists, "LISTS componente List")
-	// if (!list) return <p>Cargando...</p>
-
-	// useEffect(() => {
-	// 	setList([...lists])
-	// }, [lists])
-=======
 	const [showAddListButton, setShowAddListButton] = useState(false)
->>>>>>> a7d36f48fab68147cdda6bd689ab3a36e23e3bd9
 
 	console.log(lists, "componente List")
 
@@ -53,10 +33,6 @@ const List = ({ boardId }) => {
 		await addLists(boardId, listName)
 		setRefreshLists(true)
 		setShowAddListButton(false)
-<<<<<<< HEAD
-		// setRefreshList(true)
-=======
->>>>>>> a7d36f48fab68147cdda6bd689ab3a36e23e3bd9
 		setListName("")
 	}
 
@@ -70,27 +46,23 @@ const List = ({ boardId }) => {
 	return (
 		<>
 			<div className="flex dark:text-custom-white gap-4">
-<<<<<<< HEAD
-				{/* {list.map((l, i) => (
-					<ListItem key={i} list={l} handleRemoveList={handleRemoveList} />
-				))} */}
-=======
 				{lists.map((l, i) => (
 					<ListItem key={i} list={l} handleRemoveList={handleRemoveList} handleSendNewTitle={handleSendNewTitle} setRefreshLists={setRefreshLists} />
 				))}
->>>>>>> a7d36f48fab68147cdda6bd689ab3a36e23e3bd9
 
-				{!showAddListButton ? (
-					<button
-						onClick={handleShowFormList}
-						className="gap-2 px-6 py-3 bg-custom-white text-custom-black rounded-md hover:bg-custom-gray transition-all h-min min-w-80 w-80"
-					>
-						Añadir una lista
-					</button>
-				) : (
-					<FormList listName={listName} setListName={setListName} handleAddList={handleAddList} />
-				)}
-			</div>
+				{
+					!showAddListButton ? (
+						<button
+							onClick={handleShowFormList}
+							className="gap-2 px-6 py-3 bg-custom-white text-custom-black rounded-md hover:bg-custom-gray transition-all h-min min-w-80 w-80"
+						>
+							Añadir una lista
+						</button>
+					) : (
+						<FormList listName={listName} setListName={setListName} handleAddList={handleAddList} />
+					)
+				}
+			</div >
 		</>
 	)
 }
