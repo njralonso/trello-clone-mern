@@ -1,9 +1,9 @@
-const FormList = ({ listName, setListName, handleAddList }) => {
+const FormList = ({ listTitle, setListTitle, handleAddList }) => {
 	return (
 		<form className="min-w-80 w-80 flex flex-col items-center gap-2 px-4 py-2 bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200 transition-all h-min">
 			<input
-				onChange={(e) => setListName(e.target.value)}
-				value={listName}
+				onChange={(e) => setListTitle(e.target.value)}
+				value={listTitle}
 				type="text"
 				placeholder="Escribe el nombre de la lista..."
 				className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"

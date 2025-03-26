@@ -8,17 +8,25 @@ const Board = () => {
 	const { board } = useGetBoardById(name);
 
 	return (
-		<Layout>
+		<>
 			{board &&
 				<div className="flex flex-col max-w-full overflow-x-auto">
-					<h1 className="dark:text-custom-white text-custom-black font-bold text-5xl mb-6 tracking-wide">
+					<h2 className="dark:text-custom-white text-custom-black font-bold text-5xl mb-6 tracking-wide">
 						{board.title}
-					</h1>
+					</h2>
 					<List boardId={name} boardLists={board.lists} />
 				</div>
 			}
+		</>
+	)
+}
+
+const BoardView = ({ children }) => {
+	return (
+		<Layout>
+			<Board />
 		</Layout>
 	)
 }
 
-export default Board
+export default BoardView

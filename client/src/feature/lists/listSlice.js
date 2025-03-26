@@ -1,34 +1,55 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { createSelector } from 'reselect';
 
-export const fetchLists = createAsyncThunk("lists/fetchLists", async (boardId, { rejectWithValue }) => {
-	try {
-		const response = await fetch(`http://localhost:3000/api/getLists/${boardId}`)
-		if (!response.ok) {
-			throw new Error("Error fetching lists")
+export const fetchLists = createAsyncThunk(
+	"lists/fetchLists", async (boardId, { rejectWithValue }) => {
+		try {
+			const response = await fetch(`http://localhost:3000/api/getLists/${boardId}`)
+			if (!response.ok) {
+				throw new Error("Error fetching lists")
+			}
+			const data = await response.json()
+			return data
+		} catch (error) {
+			return rejectWithValue(error.message)
 		}
-		const data = await response.json()
-		return data
-	} catch (error) {
-		return rejectWithValue(error.message)
 	}
-})
+)
 
-export const editListTitle = createAsyncThunk("lists/editListTitle", async ({ newTitle, listId }) => {
-	const response = await fetch("http://localhost:3000/api/changeListTitle", {
-		method: "POST",
-		mode: "cors",
-		headers: { "Content-Type": "application/json" },
-		body: JSON.stringify({ newTitle, listId })
-	})
-	try {
-		const data = await response.json()
-		console.log(data, "data del editListTitle en el slice")
-		// if (!data.ok) throw new Error("Error al enviar la petición")
-	} catch (error) {
-		console.log(error, "Error del catch")
+export const editListTitle = createAsyncThunk(
+	"lists/editListTitle",
+	async ({ newTitle, listId }) => {
+		const response = await fetch("http://localhost:3000/api/changeListTitle", {
+			method: "POST",
+			mode: "cors",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify({ newTitle, listId })
+		})
+		try {
+			const data = await response.json()
+			console.log(data, "data del editListTitle en el slice")
+			// if (!data.ok) throw new Error("Error al enviar la petición")
+		} catch (error) {
+			console.log(error, "Error del catch")
+		}
 	}
-})
+)
+
+export const addNewList = createAsyncThunk(
+	"lists/addNewList",
+	async ({ board, title }) => {
+		const response = await fetch("http://localhost:3000/api/addLists", {
+			method: "POST",
+			mode: "cors",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify({ board, title })
+		})
+		try {
+			const newList = await response.json()
+			return newList
+		} catch (error) { }
+	}
+)
 
 const listSlice = createSlice({
 	name: 'lists',
@@ -47,6 +68,10 @@ const listSlice = createSlice({
 			if (listToUpdate) {
 				listToUpdate.title = newTitle
 			}
+		},
+		setNewList: (state, action) => {
+			const newList = action.payload
+			state.lists.push(newList)
 		}
 	},
 	extraReducers: (builder) => {
@@ -72,11 +97,17 @@ const listSlice = createSlice({
 					listToUpdate.title = newTitle
 				}
 			})
+			// Case to add new list
+			.addCase(addNewList.fulfilled, (state, action) => {
+				const newList = action.payload.createList
+				state.lists.push(newList)
+				console.log(newList, "newList del addNewList en el slice")
+			})
 	}
 })
 
 export default listSlice.reducer;
-export const { setLists } = listSlice.actions;
+export const { setLists, setNewList } = listSlice.actions;
 export const selectAllLists = (state) => state.lists.lists
 
 const selectLists = (state) => state.lists.lists;
