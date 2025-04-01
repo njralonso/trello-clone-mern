@@ -1,17 +1,19 @@
-export function useCreateTask() {
-	async function addTask(list, title) {
+import { useEffect } from "react"
+import { useAppDispatch, useAppSelector } from "../../hooks"
+import { createTaskAsync, selectAllTasks } from "../../feature/tasks/taskSlice"
 
-		console.log(list, "addtask")
+export function useCreateTask(listId, taskTitle) {
+	const dispatch = useAppDispatch()
+	const tasksCreate = useAppSelector(selectAllTasks)
+	const statusCreate = useAppSelector((state) => state.tasks.status)
+	const errorCreate = useAppSelector((state) => state.tasks.error)
 
-		const response = await fetch("http://localhost:3000/api/addTasks", {
-			method: "POST",
-			mode: "cors",
-			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify({ list, title })
-		})
-		try {
-			const data = await response.json()
-		} catch (error) { }
-	}
-	return { addTask }
+	useEffect(() => {
+		if (statusCreate === "idle") {
+			dispatch(createTaskAsync(listId, taskTitle))
+		}
+	}, [listId, dispatch, statusCreate])
+
+
+	return { tasksCreate, statusCreate, errorCreate }
 }
