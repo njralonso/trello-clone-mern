@@ -14,7 +14,7 @@ const Board = () => {
 					<h2 className="dark:text-custom-white text-custom-black font-bold text-5xl mb-6 tracking-wide">
 						{board.title}
 					</h2>
-					<List boardId={name} boardLists={board.lists} />
+					<List boardId={name} />
 				</div>
 			}
 		</>

@@ -1,22 +1,18 @@
-import { useState, useEffect } from "react"
+import { useEffect } from "react"
+import { useAppDispatch, useAppSelector } from "../../hooks"
+import { fetchTasksAsync, selectAllTasks } from "../../feature/tasks/taskSlice"
 
 export function useGetTasks(listId) {
-	const [tasks, setTasks] = useState([])
-	const [refreshTask, setRefreshTask] = useState(false)
-
-	async function fetchTasks() {
-		try {
-			const response = await fetch(`http://localhost:3000/api/getTasks/${listId}`)
-			const data = await response.json()
-			setTasks(data);
-		} catch (error) { } finally {
-			// setRefreshTask(false)
-		}
-	}
+	const dispatch = useAppDispatch()
+	const tasks = useAppSelector(selectAllTasks)
+	const status = useAppSelector((state) => state.tasks.status)
+	const error = useAppSelector((state) => state.tasks.error)
 
 	useEffect(() => {
-		fetchTasks()
-	}, [])
+		if (status === "idle") {
+			dispatch(fetchTasksAsync(listId))
+		}
+	}, [listId, dispatch, status])
 
-	return { tasks, setTasks, setRefreshTask }
+	return { tasks, status, error }
 }

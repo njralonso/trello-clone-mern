@@ -1,16 +1,14 @@
 import { useState } from "react"
 import { useEditTask } from "../hooks/tasks/useEditTask";
-import useTaskRemove from "../hooks/tasks/useTaskRemove";
 import { useGetTasks } from "../hooks/tasks/useGetTasks";
+import { deleteTask, setTask } from "../feature/tasks/taskSlice";
 
 const Task = ({ list }) => {
-	const { tasks, setTasks, setRefreshTask } = useGetTasks(list)
-	const { taskRemove } = useTaskRemove()
+	const { tasks } = useGetTasks(list)
 
-	const handleDeleteTask = async (taskId) => {
-		await taskRemove(taskId)
-		setTasks((prevTasks) => prevTasks.filter((task) => task._id !== taskId));
-		setRefreshTask(true)
+	const handleDeleteTask = (taskId) => {
+		deleteTask(taskId)
+		setTask((prevTasks) => prevTasks.filter((task) => task._id !== taskId));
 	};
 
 	return (
