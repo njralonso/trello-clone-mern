@@ -2,7 +2,7 @@ import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import AddNewBoardSvg from "../images/icons/circle_add.svg"
 import Modal from "../components/Modals/Layout/Modal";
-import useGetBoards from "../hooks/useGetBoards";
+import { useGetBoards } from "../hooks/useGetBoards";
 import Layout from "../views/layouts/_layout"
 
 const Boards = () => {

@@ -1,15 +1,18 @@
+import { useAppDispatch, useAppSelector } from "../../hooks"
+import { createListAsync, selectAllLists, setNewList } from "../../feature/lists/listSlice"
+import { useEffect } from "react"
 
 export function useCreateList() {
-	async function addLists(board, title) {
-		try {
-			const response = await fetch("http://localhost:3000/api/addLists", {
-				method: "POST",
-				mode: "cors",
-				headers: { "Content-Type": "application/json" },
-				body: JSON.stringify({ board, title })
-			})
-			const newList = await response.json()
-		} catch (error) { }
+	const dispatch = useAppDispatch()
+	const lists = useAppSelector(selectAllLists)
+	const status = useAppSelector((state) => state.lists.status)
+	const error = useAppSelector((state) => state.lists.error)
+
+
+	const handleCreateList = (board, listTitle) => {
+		dispatch(createListAsync(board, listTitle))
+		dispatch(setNewList(board, listTitle))
 	}
-	return { addLists }
+
+	return { handleCreateList }
 }

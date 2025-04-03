@@ -1,5 +1,5 @@
 import { NavLink, useNavigate } from "react-router-dom"
-import useGetBoards from "../../../hooks/useGetBoards"
+import { useGetBoards } from "../../../hooks/useGetBoards"
 
 const SideBar = () => {
 	const navigate = useNavigate()

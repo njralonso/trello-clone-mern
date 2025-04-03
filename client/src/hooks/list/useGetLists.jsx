@@ -1,6 +1,6 @@
 import { useEffect } from "react"
 import { useAppDispatch, useAppSelector } from "../../hooks"
-import { fetchLists, selectAllLists } from "../../feature/lists/listSlice"
+import { fetchListAsync, selectAllLists } from "../../feature/lists/listSlice"
 
 export function useGetLists(boardId) {
 	const dispatch = useAppDispatch();
@@ -10,7 +10,7 @@ export function useGetLists(boardId) {
 
 	useEffect(() => {
 		if (status === "idle") {  // ✅ Solo si no se ha cargado antes
-			dispatch(fetchLists(boardId));
+			dispatch(fetchListAsync(boardId));
 		}
 	}, [dispatch, boardId, status]); // ✅ Se ejecuta solo cuando `status` cambia
 
