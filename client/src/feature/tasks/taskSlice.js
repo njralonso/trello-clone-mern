@@ -101,7 +101,7 @@ const taskSlice = createSlice({
 			})
 			.addCase(createTaskAsync.fulfilled, (state, action) => {
 				state.status = "succeeded"
-				state.tasks.push(action.payload)
+				state.tasks = action.payload
 			})
 			.addCase(createTaskAsync.rejected, (state, action) => {
 				state.status = "failed"

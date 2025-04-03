@@ -7,9 +7,6 @@ const Board = () => {
 	const { name: boardId } = useParams()
 	const { board } = useGetBoardById(boardId);
 
-	if (!board) return null
-	const { lists } = board
-
 	return (
 		<>
 			{board &&
@@ -17,7 +14,7 @@ const Board = () => {
 					<h2 className="dark:text-custom-white text-custom-black font-bold text-5xl mb-6 tracking-wide">
 						{board.title}
 					</h2>
-					<List boardId={boardId} lists={lists} />
+					<List boardId={boardId} />
 				</div>
 			}
 		</>

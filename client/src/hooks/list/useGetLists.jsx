@@ -7,7 +7,7 @@ export function useGetLists(boardId) {
 	const lists = useAppSelector(selectAllLists);
 	const status = useAppSelector((state) => state.lists.status);
 	const error = useAppSelector((state) => state.lists.error);
-
+	console.log(lists, "listas del hook useGetLists")
 	useEffect(() => {
 		if (status === "idle") {  // ✅ Solo si no se ha cargado antes
 			dispatch(fetchListAsync(boardId));

@@ -19,13 +19,13 @@ export const getBoardsById = async (id) => {
 }
 
 export const deleteBoardService = async (data) => {
-	const { id } = data
+	const { boardId } = data
 	try {
-		const lists = await List.find({ board: id })
+		const lists = await List.find({ board: boardId })
 		const listId = lists.map(list => list._id)
 		await Task.deleteMany({ list: { $in: listId } })
 		await List.deleteMany({ _id: { $in: listId } })
-		await Board.findByIdAndDelete(id)
+		await Board.findByIdAndDelete(boardId)
 		console.log("Board y todas sus listas y tareas eliminadas correctamente.");
 	} catch (error) {
 		console.error("Error al eliminar el board:", error);

@@ -2,20 +2,22 @@ import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import AddNewBoardSvg from "../images/icons/circle_add.svg"
 import Modal from "../components/Modals/Layout/Modal";
-import { useGetBoards } from "../hooks/useGetBoards";
+import { useGetBoards, useCreateBoard, useDeleteBoard } from "../hooks/useBoard";
 import Layout from "../views/layouts/_layout"
 
 const Boards = () => {
 	// Llamamos a los boards del backend
-	const { board, setRefresh } = useGetBoards()
+	const { boards } = useGetBoards()
+	const { createBoard } = useCreateBoard()
+	const { deleteBoard } = useDeleteBoard()
 	const [isOpen, setIsOpen] = useState(false);
 
-	console.log(board, "componente Boards")
+	console.log(boards, "componente Boards")
 
 	return (
 		<>
 			<Layout>
-				<Modal isOpen={isOpen} closeModal={() => setIsOpen(false)} setRefresh={setRefresh} />
+				<Modal isOpen={isOpen} closeModal={() => setIsOpen(false)} createBoard={createBoard} />
 				<section className="dark:bg-custom-black w-full">
 					<div className="container">
 						<div
@@ -34,17 +36,18 @@ const Boards = () => {
 									<img src={AddNewBoardSvg} alt="add_new_board" className="size-8 h-full" />
 								</div>
 							</div>
-							{board.map((board, i) => (
+							{boards.map((board, i) => (
 								<ul
 									key={i}
 									className="dark:bg-custom-gray dark:text-custom-white text-center 
-									hover:inset-ring-2 hover:inset-ring-custom-teal hover:dark:bg-custom-gray/20 rounded-lg"
+									hover:ring-2 hover:ring-custom-teal hover:dark:bg-custom-gray/20 rounded-lg overflow-hidden"
 								>
-									<NavLink to={`/boards/${board._id}`} className="block py-4 px-8">
-										<li>
-											<h3>{board.title}</h3>
-										</li>
-									</NavLink>
+									<li className="bg-blue-900 flex">
+										<NavLink to={`/boards/${board._id}`} className="block w-full h-full">
+											<h3 className="p-2">{board.title}</h3>
+										</NavLink>
+										<button onClick={() => deleteBoard(board._id)} className="p-1 rounded-md">❌</button>
+									</li>
 								</ul>
 							))}
 						</div>

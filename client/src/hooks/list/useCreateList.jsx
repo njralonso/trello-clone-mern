@@ -8,11 +8,9 @@ export function useCreateList() {
 	const status = useAppSelector((state) => state.lists.status)
 	const error = useAppSelector((state) => state.lists.error)
 
-
 	const handleCreateList = (board, listTitle) => {
 		dispatch(createListAsync(board, listTitle))
-		dispatch(setNewList(board, listTitle))
 	}
 
-	return { handleCreateList }
+	return { lists, handleCreateList }
 }
