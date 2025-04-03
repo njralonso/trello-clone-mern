@@ -2,6 +2,7 @@ import { memo, useState } from "react"
 import Task from "./Task"
 import FormList from "./FormList"
 import { useCreateList } from "../hooks/list/useCreateList"
+import { useGetLists } from "../hooks/list/useGetLists"
 
 const ListBody = memo(({ children, list }) => {
 	return (
@@ -42,8 +43,10 @@ function ListGroup({ lists = [], onAddList, isFormVisible, onShowForm, listTitle
 	)
 }
 
-const List = ({ boardId: board, lists }) => {
-	const { handleCreateList } = useCreateList()
+const List = ({ boardId: board }) => {
+	const { lists, status, error } = useGetLists(board)
+	const { lists: listas, handleCreateList } = useCreateList()
+	console.log(lists, "listas del componente List")
 	const [isVisibleAddList, setIsVisibleAddList] = useState(false);
 	const [listTitle, setListTitle] = useState("");
 

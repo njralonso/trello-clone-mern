@@ -1,9 +1,9 @@
 import { NavLink, useNavigate } from "react-router-dom"
-import { useGetBoards } from "../../../hooks/useGetBoards"
+import { useGetBoards } from "../../../hooks/useBoard"
 
 const SideBar = () => {
 	const navigate = useNavigate()
-	const { board } = useGetBoards()
+	const { boards } = useGetBoards()
 
 	return (
 		<aside
@@ -28,7 +28,7 @@ const SideBar = () => {
 							<span className="ms-3">Tableros</span>
 						</NavLink>
 						<ul>
-							{board.map((b, i) => (
+							{boards.map((b, i) => (
 								<li key={i} onClick={() => { navigate(`/boards/${b._id}`) }} className="cursor-pointer ml-12 text-custom-white hover:underline">{b.title}</li>
 							))}
 						</ul>

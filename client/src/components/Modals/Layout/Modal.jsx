@@ -1,15 +1,13 @@
 import ModalTask from "../ModalBoard";
 import { useState } from "react";
-import useNewBoard from "../../../hooks/useNewBoard";
 
-const Modal = ({ isOpen, closeModal, setRefresh }) => {
+const Modal = ({ isOpen, closeModal, createBoard }) => {
 	if (!isOpen) return null; // No renderiza nada si isOpen es false
-	const [board, setBoard] = useState([])
+	const [board, setBoard] = useState("")
 
 	const handleNewBoard = () => {
-		useNewBoard(board)
+		createBoard(board)
 		closeModal()
-		setRefresh(true)
 	}
 
 	const handleBoard = (value) => {

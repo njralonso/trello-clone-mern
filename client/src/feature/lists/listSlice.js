@@ -1,6 +1,22 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { createSelector } from 'reselect';
 
+export const createListAsync = createAsyncThunk(
+	"lists/createListAsync",
+	async ({ board, listTitle: title }) => {
+		const response = await fetch("http://localhost:3000/api/addLists", {
+			method: "POST",
+			mode: "cors",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify({ board, title })
+		})
+		try {
+			const newList = await response.json()
+			return newList
+		} catch (error) { }
+	}
+)
+
 export const fetchListAsync = createAsyncThunk(
 	"lists/fetchListAsync", async (boardId, { rejectWithValue }) => {
 		try {
@@ -35,22 +51,6 @@ export const updateListAsync = createAsyncThunk(
 	}
 )
 
-export const createListAsync = createAsyncThunk(
-	"lists/createListAsync",
-	async ({ board, listTitle: title }) => {
-		const response = await fetch("http://localhost:3000/api/addLists", {
-			method: "POST",
-			mode: "cors",
-			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify({ board, title })
-		})
-		try {
-			const newList = await response.json()
-			return newList
-		} catch (error) { }
-	}
-)
-
 const listSlice = createSlice({
 	name: 'lists',
 	initialState: {
@@ -70,8 +70,7 @@ const listSlice = createSlice({
 			}
 		},
 		setNewList: (state, action) => {
-			const newList = action.payload
-			state.lists.push(newList)
+			state.lists.push(action.payload)
 		}
 	},
 	extraReducers: (builder) => {
