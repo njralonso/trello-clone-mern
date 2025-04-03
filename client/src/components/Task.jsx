@@ -1,69 +1,24 @@
-import { useState } from "react"
-import { useEditTask } from "../hooks/tasks/useEditTask";
-import { useGetTasks } from "../hooks/tasks/useGetTasks";
-import { deleteTask, setTask } from "../feature/tasks/taskSlice";
+import { memo } from "react";
+
+const TaskBody = memo(({ task }) => {
+	return (
+		<div
+			key={task._id}
+			className="bg-red-900 dark:bg-custom-dark-gray shadow-md rounded-lg p-4 mb-4"
+		>
+			<h3 className="text-lg font-semibold text-custom-black dark:text-custom-white">
+				{task.title}
+			</h3>
+		</div>
+	)
+})
+
+function TaskGroup({ tasks = [] }) {
+	return tasks.map((task) => <TaskBody key={task._id} task={task} />)
+}
 
 const Task = ({ list }) => {
-	const { tasks } = useGetTasks(list)
-
-	const handleDeleteTask = (taskId) => {
-		deleteTask(taskId)
-		setTask((prevTasks) => prevTasks.filter((task) => task._id !== taskId));
-	};
-
-	return (
-		<ul>
-			{tasks.map((item, i) => (
-				<TaskItem key={i} task={item} handleDeleteTask={handleDeleteTask} />
-			))}
-		</ul>
-	);
-};
-
-const TaskItem = ({ task, handleDeleteTask }) => {
-	const { editTitle } = useEditTask()
-	const [isEditing, setIsEditing] = useState(false);
-	const [taskTitle, setTaskTitle] = useState(task.title);
-
-
-	const handleDoubleClick = () => {
-		setIsEditing(true);
-	};
-
-	const handleChange = (e) => {
-		setTaskTitle(e.target.value);
-	};
-
-	const handleSubmit = async (e) => {
-		e.preventDefault();
-		if (taskTitle.trim() === "") return;
-		setIsEditing(false);
-		await editTitle(task._id, taskTitle)
-	};
-
-	return (
-		<li
-			onDoubleClick={handleDoubleClick}
-			className="bg-custom-black p-3 rounded-lg shadow-sm border border-custom-gray text-custom-white hover:bg-custom-teal/50 transition-all"
-		>
-			{!isEditing ? (
-				<div className="flex justify-between">
-					< p className="break-words whitespace-normal">{isEditing ? task.title : taskTitle}</p>
-					<button onClick={() => handleDeleteTask(task._id)} className="hover:bg-white hover:rounded-md">❌</button>
-				</div>
-			) : (
-				<form onSubmit={handleSubmit}>
-					<input
-						type="text"
-						value={taskTitle}
-						onChange={handleChange}
-						autoFocus
-						className="w-full"
-					/>
-				</form>
-			)}
-		</li >
-	);
+	return <TaskGroup tasks={list.task || []} />
 };
 
 export default Task

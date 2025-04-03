@@ -12,6 +12,10 @@ export const getBoards = async () => {
 
 export const getBoardsById = async (id) => {
 	return await Board.findById(id)
+		.populate({
+			path: "lists", // Poblar las listas dentro del tablero
+			populate: { path: "task" } // Poblar las tareas dentro de cada lista
+		});
 }
 
 export const deleteBoardService = async (data) => {
