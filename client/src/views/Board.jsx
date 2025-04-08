@@ -1,7 +1,7 @@
 import Layout from "./layouts/_layout"
 import { useParams } from 'react-router'
 import List from "../components/List"
-import useGetBoardById from "../hooks/useGetBoardById"
+import { useGetBoardById } from "../hooks/boards/useBoard"
 
 const Board = () => {
 	const { name: boardId } = useParams()

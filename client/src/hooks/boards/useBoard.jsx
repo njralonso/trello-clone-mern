@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "../hooks"
+import { useAppDispatch, useAppSelector } from "../../hooks"
 import {
 	createBoardAsync,
 	fetchBoardsAsync,
@@ -7,7 +7,7 @@ import {
 	updateBoardAsync,
 	deleteBoardAsync,
 	selectAllBoards
-} from "../feature/board/boardSlice"
+} from "../../feature/board/boardSlice"
 
 
 function useCreateBoard() {
