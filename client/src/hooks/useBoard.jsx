@@ -2,7 +2,8 @@ import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../hooks"
 import {
 	createBoardAsync,
-	fetchBoardAsync,
+	fetchBoardsAsync,
+	fetchBoardByIdAsync,
 	updateBoardAsync,
 	deleteBoardAsync,
 	selectAllBoards
@@ -27,11 +28,25 @@ function useGetBoards() {
 
 	useEffect(() => {
 		if (status === "idle") {
-			dispatch(fetchBoardAsync())
+			dispatch(fetchBoardsAsync())
 		}
 	}, [dispatch, status])
 
 	return { boards, status, error }
+}
+
+function useGetBoardById(boardId) {
+	const dispatch = useAppDispatch()
+	const board = useAppSelector(selectAllBoards)
+	const { status, error } = useAppSelector((state) => state.boards)
+
+	useEffect(() => {
+		if (status === "idle") {
+			dispatch(fetchBoardByIdAsync(boardId))
+		}
+	}, [dispatch, status])
+
+	return { board, status, error }
 }
 
 function useUpdateBoard() {
@@ -57,4 +72,4 @@ function useDeleteBoard() {
 }
 
 
-export { useCreateBoard, useGetBoards, useUpdateBoard, useDeleteBoard }
+export { useCreateBoard, useGetBoards, useGetBoardById, useUpdateBoard, useDeleteBoard }

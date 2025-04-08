@@ -12,7 +12,6 @@ const Boards = () => {
 	const { deleteBoard } = useDeleteBoard()
 	const [isOpen, setIsOpen] = useState(false);
 
-	console.log(boards, "componente Boards")
 
 	return (
 		<>

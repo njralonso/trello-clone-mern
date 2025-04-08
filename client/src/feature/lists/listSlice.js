@@ -109,7 +109,6 @@ export default listSlice.reducer;
 export const { setLists, setNewList } = listSlice.actions;
 export const selectAllLists = (state) => state.lists.lists
 
-const selectLists = (state) => state.lists.lists;
-export const allTitles = createSelector([selectLists], (lists) => {
-	return lists.map((list) => list.title);
+export const allTitles = createSelector([selectAllLists], (lists) => {
+	return lists.map((list) => list);
 });

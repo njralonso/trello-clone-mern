@@ -23,8 +23,8 @@ export const createBoardAsync = createAsyncThunk(
 		}
 	}
 )
-export const fetchBoardAsync = createAsyncThunk(
-	"boards/fetchBoardAsync",
+export const fetchBoardsAsync = createAsyncThunk(
+	"boards/fetchBoardsAsync",
 	async (_, { rejectWithValue }) => {
 		try {
 			const response = await fetch("http://localhost:3000/api/getBoards");
@@ -35,6 +35,22 @@ export const fetchBoardAsync = createAsyncThunk(
 			return data;
 		} catch (error) {
 			return rejectWithValue(error.message);
+		}
+	}
+)
+
+export const fetchBoardByIdAsync = createAsyncThunk(
+	"boards/fetchBoardByIdAsync",
+	async (boardId, { rejectWithValue }) => {
+		try {
+			const response = await fetch(`http://localhost:3000/api/getBoard/${boardId}`)
+			if (!response.ok) {
+				throw new Error("Error fetching board")
+			}
+			const data = await response.json()
+			return data
+		} catch (error) {
+			return rejectWithValue(error.message)
 		}
 	}
 )
@@ -109,15 +125,31 @@ const boardSlice = createSlice({
 				state.error = action.payload;
 			})
 			// Fetch boards
-			.addCase(fetchBoardAsync.pending, (state) => {
+			.addCase(fetchBoardsAsync.pending, (state) => {
 				state.status = "loading";
 				state.error = null;
 			})
-			.addCase(fetchBoardAsync.fulfilled, (state, action) => {
+			.addCase(fetchBoardsAsync.fulfilled, (state, action) => {
 				state.status = "succeeded"
 				state.boards = action.payload
 			})
-			.addCase(fetchBoardAsync.rejected, (state, action) => {
+			.addCase(fetchBoardsAsync.rejected, (state, action) => {
+				state.status = "failed";
+				state.error = action.payload;
+			})
+			// Fetch board by ID
+			.addCase(fetchBoardByIdAsync.pending, (state) => {
+				state.status = "loading";
+				state.error = null;
+			})
+			.addCase(fetchBoardByIdAsync.fulfilled, (state, action) => {
+				state.status = "succeeded"
+				const board = state.boards.find(board => board._id === action.payload._id)
+				if (board) {
+					board.lists = action.payload.lists
+				}
+			})
+			.addCase(fetchBoardByIdAsync.rejected, (state, action) => {
 				state.status = "failed";
 				state.error = action.payload;
 			})

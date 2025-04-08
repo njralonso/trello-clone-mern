@@ -1,8 +1,8 @@
 import { memo, useState } from "react"
 import Task from "./Task"
 import FormList from "./FormList"
-import { useCreateList } from "../hooks/list/useCreateList"
-import { useGetLists } from "../hooks/list/useGetLists"
+import { useCreateList } from "../hooks/list/useLists"
+import { useGetLists } from "../hooks/list/useLists"
 
 const ListBody = memo(({ children, list }) => {
 	return (
@@ -13,7 +13,8 @@ const ListBody = memo(({ children, list }) => {
 	)
 })
 
-function ListGroup({ lists = [], onAddList, isFormVisible, onShowForm, listTitle, setListTitle }) {
+function ListGroup({ lists = [], handleAddList, isFormVisible, onShowForm, listTitle, setListTitle }) {
+	console.log("ListGroup", lists)
 	return (
 		<>
 			{lists.map(list => (
@@ -28,7 +29,7 @@ function ListGroup({ lists = [], onAddList, isFormVisible, onShowForm, listTitle
 					<FormList
 						listTitle={listTitle}
 						setListTitle={setListTitle}
-						handleAddList={onAddList}
+						handleAddList={handleAddList}
 					/>
 				) : (
 					<button
@@ -43,27 +44,26 @@ function ListGroup({ lists = [], onAddList, isFormVisible, onShowForm, listTitle
 	)
 }
 
-const List = ({ boardId: board }) => {
-	const { lists, status, error } = useGetLists(board)
-	const { lists: listas, handleCreateList } = useCreateList()
-	console.log(lists, "listas del componente List")
+const List = ({ boardId }) => {
+	const { listsInfo, statusTitle, errorTitle } = useGetLists(boardId)
+	const { handleCreateList } = useCreateList()
 	const [isVisibleAddList, setIsVisibleAddList] = useState(false);
 	const [listTitle, setListTitle] = useState("");
 
 	const handleShowFormList = () => setIsVisibleAddList(true);
 
 	const handleAddList = () => {
-		handleCreateList({ board, listTitle })
+		handleCreateList({ board: boardId, listTitle })
 		console.log("Nueva lista agregada:", listTitle);
 		setIsVisibleAddList(false);
 		setListTitle("");
 	};
 
 	return <ListGroup
-		lists={lists}
+		lists={listsInfo}
 		isFormVisible={isVisibleAddList}
 		onShowForm={handleShowFormList}
-		onAddList={handleAddList}
+		handleAddList={handleAddList}
 		listTitle={listTitle}
 		setListTitle={setListTitle}
 	/>
