@@ -2,10 +2,15 @@ import Layout from "./layouts/_layout"
 import { useParams } from 'react-router'
 import List from "../components/List"
 import { useGetBoardById } from "../hooks/boards/useBoard"
+import { useGetTask } from "../hooks/tasks/useTasks"
 
 const Board = () => {
 	const { name: boardId } = useParams()
 	const { board } = useGetBoardById(boardId);
+
+	const lists = board.find(board => board._id === boardId).lists || []
+
+
 
 	return (
 		<>
@@ -14,7 +19,7 @@ const Board = () => {
 					<h2 className="dark:text-custom-white text-custom-black font-bold text-5xl mb-6 tracking-wide">
 						{board.title}
 					</h2>
-					<List boardId={boardId} />
+					<List lists={lists} />
 				</div>
 			}
 		</>

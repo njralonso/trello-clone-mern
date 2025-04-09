@@ -18,6 +18,7 @@ function TaskGroup({ tasks = [] }) {
 }
 
 const Task = ({ list }) => {
+	console.log("Task", list)
 	return <TaskGroup tasks={list.task || []} />
 };
 

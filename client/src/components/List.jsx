@@ -19,7 +19,7 @@ function ListGroup({ lists = [], handleAddList, isFormVisible, onShowForm, listT
 		<>
 			{lists.map(list => (
 				<ListBody key={list._id} list={list}>
-					<Task list={list} />
+					<Task list={list.task} />
 				</ListBody>)
 			)}
 
@@ -44,8 +44,10 @@ function ListGroup({ lists = [], handleAddList, isFormVisible, onShowForm, listT
 	)
 }
 
-const List = ({ boardId }) => {
+const List = ({ lists }) => {
+	console.log("List", lists)
 	const { listsInfo, statusTitle, errorTitle } = useGetLists(boardId)
+	console.log(listsInfo, "listsInfo")
 	const { handleCreateList } = useCreateList()
 	const [isVisibleAddList, setIsVisibleAddList] = useState(false);
 	const [listTitle, setListTitle] = useState("");
