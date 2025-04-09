@@ -11,6 +11,9 @@ export const createLists = async (data) => {
 
 export const getLists = async () => {
 	return await List.find()
+		.populate({
+			path: "task", // Poblar las tareas dentro de la lista
+		})
 }
 
 export const getListsByBoardId = async (id) => {
